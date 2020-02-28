@@ -136,8 +136,6 @@ bool publishToCloud(String filter, String message){
     delay(1000);   // wait for 1 second (allowed publish rate is per second)
   }
 
-  // TODO: try publishing with Particle.publish(filter, message, WITH_ACK) instead of looping
-
   // print to serial output
   Serial.print("PUBLISH_TO_CLOUD :: ");
   Serial.println(message);
@@ -233,5 +231,3 @@ void toggleWifi(){
     wifi_flag = true;
   }
 }
-// TODO
-// Handle case when device not connected to net and thus location not received. Payload might not carry the location of the device.
