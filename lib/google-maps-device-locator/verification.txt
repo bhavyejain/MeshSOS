@@ -1,0 +1,36 @@
+Google Maps Device Locator
+
+The main documentation for the library is here:
+https://docs.particle.io/tutorials/integrations/google-maps/
+
+The device locator uses either Wi-Fi base station or Cellular tower information to do
+geolocation using Particle.publish and the Google Geolocation API. The Google Maps Device
+Locator Integration handles interfacing the publish and the Google API.
+
+Currently supported platforms: Photon, P1, and Electron
+Tested on system firmware versions: 0.6.1, 0.6.0 and 0.5.3
+
+Not supported: Core and Raspberry Pi (because they do not provide the necessary BSSID 
+information), and Bluz (because it has neither Wi-Fi nor cellular).
+
+Testing
+=======
+
+Run the examples/simple/simple.ino demo on a supported platform.
+
+Monitor the event stream. Every 2 minutes a deviceLocator event should be generated if
+connected to the Particle cloud. 
+
+If you have enabled the Google Maps Device Locator integration as well, you'll also
+get back either:
+
+- A hook-response with the latitude,longitude,uncertainty with the uncertainty radius
+in meters
+- A 404 response if the location is not known by Google geolocation
+
+The output JSON in the event data should look similar to these examples:
+
+{"c":{"o":"","a":[{"i":43351,"l":43810,"c":310,"n":260}]}}
+
+{"c":{"o":"","a":[{"i":43351,"l":43810,"c":310,"n":260},{"i":145074106,"l":11511,"c":310,"n":410}]}}
+
