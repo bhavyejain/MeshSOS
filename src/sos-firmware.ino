@@ -9,9 +9,8 @@
 #include "google-maps-device-locator.h"
 
 // variables for I/O
-int button_med = A1;
-int button_pol = A2;
-int ledPin = D7;
+const int button_med = A1;
+const int button_pol = A2;
 
 // variables to store input values
 int val_med = 0;
@@ -32,26 +31,38 @@ String latitude = "-1";       // setting default to -1 to ease error detection l
 String longitude = "-1";
 String accuracy = "-1";
 
-// variables for WiFi toggle (testing)
-int wifi_btn = A5;
-int val_wifi = 0;
-bool wifi_flag = true;
+#if Wiring_WiFi
+  // variables for WiFi toggle (testing)
+  const int wifi_btn = A5;
+  int val_wifi = 0;
+  bool wifi_flag = true;
+#endif
+
+#if Wiring_Cellular
+  // variables for Cellular toggle (testing)
+  const int cellular_btn = A5;
+  int val_cellular = 0;
+  bool cellular_flag = true;
+#endif
 
 void setup() {
   
   pinMode(button_med, INPUT_PULLDOWN);  // take input from medical emergency button
   pinMode(button_pol, INPUT_PULLDOWN);  // take input from police emergency button
-  pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
 
-  pinMode(ledPin, OUTPUT);  // LED output for testing
+  #if Wiring_WiFi
+    pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
+  #endif
+
+  #if Wiring_Cellular
+    pinMode(cellular_btn, INPUT_PULLDOWN);    // take input from cellular toggle button
+  #endif
 
   Particle.variable("medical", btn_medical);  // make btn_medical visible to cloud
   Particle.variable("police", btn_police);  // make btn_police visible to cloud
 
   Particle.subscribe("hook-response/emergency", hookResponseHandler, ALL_DEVICES);
   Mesh.subscribe("m_emergency", meshEmergencyHandler);
-
-  digitalWrite(ledPin, LOW);    // keep LED off on setup
 
   // augment emergency messages with device ID
   MESSAGE_MEDICAL.concat(DEVICE);
@@ -103,13 +114,25 @@ void loop() {
     delay(500);   // do not publish multiple times for a long press
   }
 
-  // toggle wifi for testing
-  val_wifi = digitalRead(wifi_btn);
-  if(val_wifi == 1){
-    toggleWifi();
+  #if Wiring_WiFi
+    // toggle wifi for testing
+    val_wifi = digitalRead(wifi_btn);
+    if(val_wifi == 1){
+      toggleWifi();
 
-    delay(500);
-  }
+      delay(500);
+    }
+  #endif
+
+  #if Wiring_Cellular
+    // toggle cellular for testing
+    val_cellular = digitalRead(cellular_btn);
+    if(val_cellular == 1){
+      toggleCellular();
+
+      delay(500);
+    }
+  #endif
 }
 
 // create JSON data
@@ -221,6 +244,7 @@ void locationCallBack(float lat, float lon, float acc){
   accuracy = String(acc);
 }
 
+#if Wiring_WiFi
 void toggleWifi(){
   if(wifi_flag){
     WiFi.disconnect();
@@ -231,3 +255,17 @@ void toggleWifi(){
     wifi_flag = true;
   }
 }
+#endif
+
+#if Wiring_Cellular
+void toggleCellular(){
+  if(cellular_flag){
+    Cellular.disconnect();
+    cellular_flag = false;
+  }
+  else{
+    Cellular.connect();
+    cellular_flag = true;
+  }
+}
+#endif
