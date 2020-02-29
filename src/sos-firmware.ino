@@ -45,6 +45,9 @@ String accuracy = "-1";
   bool cellular_flag = true;
 #endif
 
+Timer location_timer(1200000, onLocationTimeout, false);      // a timer for 20 minutes : update location of the device every 20 minutes
+bool getlocation = false;
+
 void setup() {
   
   pinMode(button_med, INPUT_PULLDOWN);  // take input from medical emergency button
@@ -69,7 +72,8 @@ void setup() {
   MESSAGE_POLICE.concat(DEVICE);
 
   locator.withSubscribe(locationCallBack);
-  locator.publishLocation();
+  locator.publishLocation();      // get initial location 
+  location_timer.start();     // keep updating location regularly
 
   Serial.begin(9600);   // initialize serial output ($ particle serial monitor)
   Serial.print("Device: "); Serial.println(DEVICE); // print device ID
@@ -133,6 +137,11 @@ void loop() {
       delay(500);
     }
   #endif
+
+  if(getlocation){      // update location
+    locator.publishLocation();
+    getlocation = false;
+  }
 }
 
 // create JSON data
@@ -269,3 +278,8 @@ void toggleCellular(){
   }
 }
 #endif
+
+// request to update location after every 20 minutes
+void onLocationTimeout(){
+  getlocation = true;
+}
