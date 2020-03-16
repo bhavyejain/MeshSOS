@@ -5,8 +5,8 @@
  * Date: 28 January 2020
  */
 
-#include "JsonParserGeneratorRK.h"
 #include "google-maps-device-locator.h"
+#include "publish-utilities.h"
 
 // variables for I/O
 const int button_med = A1;
@@ -155,69 +155,6 @@ void loop() {
   }
 }
 
-// create JSON data
-char* createEventPayload(String emergency, String lat, String lon, String acc){      
-
-  JsonWriterStatic<512> jw;
-  {
-    JsonWriterAutoObject obj(&jw);
-
-    jw.insertKeyValue("emergency", emergency);
-    jw.insertKeyValue("latitude", lat);
-    jw.insertKeyValue("longitude", lon);
-    jw.insertKeyValue("accuracy", acc);
-  }
-
-  return jw.getBuffer();
-}
-
-// publish the emergency message to Particle cloud
-bool publishToCloud(String filter, String message){       
-
-  // run the loop if publish() returns false => failed publish
-  while(!Particle.publish(filter, message)){    // keep trying to publish until successful
-    delay(1000);   // wait for 1 second (allowed publish rate is per second)
-  }
-
-  // print to serial output
-  Serial.print("PUBLISH_TO_CLOUD :: ");
-  Serial.println(message);
-  
-  return true;
-}
-
-// broadcast emergency message in the mesh
-bool publishToMesh(String filter, String message){      
-
-  int attempts = 0;
-  while(!Mesh.ready()){     // if device not connected to the mesh, try to connect 3 times
-    Mesh.connect();
-    ++attempts;
-    if(attempts >= 3)
-      break;
-  }
-
-  if(Mesh.ready()){
-    int pub = Mesh.publish(filter, message);
-    // run the loop if publish() returns non 0 value => failed publish
-    while(pub != 0){    // keep trying to publish until successful
-      pub = Mesh.publish(filter, message);
-      delay(1000);    // wait for 1 second (allowed publish rate is per second)
-    }
-
-    Serial.print("PUBLISH_TO_MESH :: ");
-    Serial.println(message);
-
-    return true;
-  }
-  else{       // unable to publish (device not connected to mesh)
-    Serial.print("FAILED_PUBLISH_TO_MESH :: ");
-    Serial.println(message);
-
-    return false;
-  }
-}
-
 // handle emergency calls received through mesh
 void meshEmergencyHandler(const char *event, const char *data){     
   Serial.print("MESH_RECEIVED:: event: ");
@@ -270,6 +207,11 @@ void locationCallBack(float lat, float lon, float acc){
   accuracy = String(acc);
 }
 
+// request to update location after every 20 minutes
+void onLocationTimeout(){
+  getlocation = true;
+}
+
 #if Wiring_WiFi
 void toggleWifi(){
   if(wifi_flag){
@@ -295,11 +237,6 @@ void toggleCellular(){
   }
 }
 #endif
-
-// request to update location after every 20 minutes
-void onLocationTimeout(){
-  getlocation = true;
-}
 
 void onAckTimeout(){
 
