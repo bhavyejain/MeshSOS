@@ -12,7 +12,7 @@
 const int button_med = A1;
 const int button_pol = A2;
 
-// variables to store input values
+// variables to store input values from buttons
 int val_med = 0;
 int val_pol = 0;
 
@@ -47,6 +47,17 @@ String accuracy = "-1";
 
 Timer location_timer(1200000, onLocationTimeout, false);      // a timer for 20 minutes : update location of the device every 20 minutes
 bool getlocation = false;
+
+int sos_attempts = 0;     // number of attempts made to send the message
+Timer ack_timeout(3000, onAckTimeout, true);      // single-shot timer of 3 seconds
+
+/** 
+ * The type of sos for which acknowledgement is awaited.
+ * -1 : No ack is awaited
+ *  0 : Medical emergency
+ *  1 : Police Emergency
+*/
+int sos_sent = -1;  
 
 void setup() {
   
@@ -171,6 +182,8 @@ bool publishToCloud(String filter, String message){
   // print to serial output
   Serial.print("PUBLISH_TO_CLOUD :: ");
   Serial.println(message);
+  
+  return true;
 }
 
 // broadcast emergency message in the mesh
@@ -194,10 +207,14 @@ bool publishToMesh(String filter, String message){
 
     Serial.print("PUBLISH_TO_MESH :: ");
     Serial.println(message);
+
+    return true;
   }
   else{       // unable to publish (device not connected to mesh)
     Serial.print("FAILED_PUBLISH_TO_MESH :: ");
     Serial.println(message);
+
+    return false;
   }
 }
 
@@ -282,4 +299,8 @@ void toggleCellular(){
 // request to update location after every 20 minutes
 void onLocationTimeout(){
   getlocation = true;
+}
+
+void onAckTimeout(){
+
 }
