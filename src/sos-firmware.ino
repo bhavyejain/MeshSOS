@@ -1,7 +1,7 @@
 /*
  * Project: MeshSOS
  * Description: A mesh networking based SOS support system for senior citizens
- * Authors: Bhavye Jain, Kaustubh Trivedi, Twarit Waikar
+ * Authors: Bhavye Jain
  * Date: 28 January 2020
  */
 
@@ -59,6 +59,9 @@ Timer ack_timeout(3000, onAckTimeout, true);      // single-shot timer of 3 seco
 */
 int sos_sent = -1;  
 
+String publish_filters[] = {"emergency/medical", "emergency/police"};
+String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
+
 void setup() {
   
   pinMode(button_med, INPUT_PULLDOWN);  // take input from medical emergency button
@@ -77,10 +80,12 @@ void setup() {
 
   Particle.subscribe("hook-response/emergency", hookResponseHandler, ALL_DEVICES);
   Mesh.subscribe("m_emergency", meshEmergencyHandler);
+  Mesh.subscribe("m_ack", meshAckHandler);
 
   // augment emergency messages with device ID
-  MESSAGE_MEDICAL.concat(DEVICE);
-  MESSAGE_POLICE.concat(DEVICE);
+  for(int i = 0; i < 2; i++){
+    publish_messages[i] = publish_messages[i].concat(DEVICE);
+  }
 
   locator.withSubscribe(locationCallBack);
   locator.publishLocation();      // get initial location 
@@ -102,9 +107,13 @@ void loop() {
   btn_medical = val_med;
   btn_police = val_pol;
 
-  if(val_med == 1){
+  if(val_med == 1 && sos_sent == -1){   // no pending acknowledgement
     locator.publishLocation();    // update device location
     String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
+
+    sos_sent = 0;   // expect an ACK for medical emergency
+    ack_timeout.start();    // start timer for receiving an acknowledgement
+    sos_attempts = 1;
 
     if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
       publishToCloud("emergency/medical", payload);
@@ -115,17 +124,13 @@ void loop() {
 
     delay(500);   // do not publish multiple times for a long press
   }
-  if(val_pol == 1){
-    locator.publishLocation();    // update device location
-    String payload = createEventPayload(MESSAGE_POLICE, latitude, longitude, accuracy);     // create JSON object with all required data to be sent
+  if(val_pol == 1 && sos_sent == -1){
 
-    if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
-      publishToCloud("emergency/police", payload);
-    }
-    else{   // publish to mesh
-      publishToMesh("m_emergency/police", payload);
-    }
+    sos_sent = 1;   // expect an ACK for police emergency
+    ack_timeout.start();    // start timer for receiving an acknowledgement
+    sos_attempts = 1;
 
+    sendSosMessage(1);
     delay(500);   // do not publish multiple times for a long press
   }
 
@@ -152,6 +157,20 @@ void loop() {
   if(getlocation){      // update location
     locator.publishLocation();
     getlocation = false;
+  }
+}
+
+void sendSosMessage(int index){
+  locator.publishLocation();    // update device location
+  String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
+
+  if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
+    publishToCloud(publish_filters[index], payload);
+  }
+  else{   // publish to mesh
+    String filter = "m_";
+    filter.concat(publish_filters[index]);
+    publishToMesh(filter, payload);
   }
 }
 
@@ -189,7 +208,49 @@ void meshEmergencyHandler(const char *event, const char *data){
 
 // handle responses from the server (via webhook)
 void hookResponseHandler(const char *event, const char *data){     
-  // TODO : send ack to SOS callee device
+  Serial.println("hookResponseHandler : " + DEVICE);
+  
+  String ack = String(data);
+  int i = ack.indexOf('/');
+  String message = ack.substring(0, i-1);
+  String ack_code = ack.substring(i+1);
+  String coreid = getDeviceID(message);
+
+  if(coreid == DEVICE){         // if the sending device receives the ACK don't propagate
+    if(ack_code.equals("1")){   // if SOS call successfully registered
+      sos_sent = -1;
+      ack_timeout.stop();
+      sos_attempts = 0;
+    }
+    else{     // if error
+      onAckTimeout();
+    }
+  }
+  else{       // propagate in mesh
+    Mesh.publish("m_ack", ack);
+  } 
+}
+
+// handle acknowlegdements published in mesh
+void meshAckHandler(const char *event, const char *data){
+  Serial.println("meshAckHandler : " + DEVICE);
+  
+  String ack = String(data);
+  int i = ack.indexOf('/');
+  String message = ack.substring(0, i-1);
+  String ack_code = ack.substring(i+1);
+  String coreid = getDeviceID(message);
+
+  if(coreid == DEVICE){
+    if(ack_code.equals("1")){
+      sos_sent = -1;
+      ack_timeout.stop();
+      sos_attempts = 0;
+    }
+    else{
+      onAckTimeout();
+    }
+  }
 }
 
 // function to extract the device ID from received augmented message
@@ -239,5 +300,40 @@ void toggleCellular(){
 #endif
 
 void onAckTimeout(){
+  if(sos_attempts < 3 && sos_sent != -1){
+    if(sos_sent == 0){    // if medical ACK was expected
+      locator.publishLocation();    // update device location
+      String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
 
+      sos_sent = 0;   // expect an ACK for medical emergency
+      ack_timeout.start();    // start timer for receiving an acknowledgement
+      sos_attempts++;
+
+      if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
+        publishToCloud("emergency/medical", payload);
+      }
+      else{   // publish to mesh
+        publishToMesh("m_emergency/medical", payload);
+      }
+    }
+    else if(sos_sent == 1){     // if police ACK was expected
+      locator.publishLocation();    // update device location
+      String payload = createEventPayload(MESSAGE_POLICE, latitude, longitude, accuracy);     // create JSON object with all required data to be sent
+
+      sos_sent = 1;   // expect an ACK for police emergency
+      ack_timeout.start();    // start timer for receiving an acknowledgement
+      sos_attempts++;
+
+      if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
+        publishToCloud("emergency/police", payload);
+      }
+      else{   // publish to mesh
+        publishToMesh("m_emergency/police", payload);
+      }
+    }
+  }
+  else{   // if number of attempts reaches 3, reset the process, SOS request has failed
+    sos_sent = -1;
+    sos_attempts = 0;
+  }
 }
