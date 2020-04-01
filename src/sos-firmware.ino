@@ -124,6 +124,7 @@ void loop() {
 
     delay(500);   // do not publish multiple times for a long press
   }
+
   if(val_pol == 1 && sos_sent == -1){
 
     sos_sent = 1;   // expect an ACK for police emergency
@@ -335,5 +336,6 @@ void onAckTimeout(){
   else{   // if number of attempts reaches 3, reset the process, SOS request has failed
     sos_sent = -1;
     sos_attempts = 0;
+    Serial.println("Sending SOS request failed!");
   }
 }
