@@ -1,3 +1,4 @@
 from django.contrib import admin
+from . models import request_logs
 
-# Register your models here.
+admin.site.register(request_logs)
