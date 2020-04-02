@@ -1,7 +1,7 @@
 from django.db import models
 
 class request_logs(models.Model):
-    # string of format "%Y-%m-%d %H:%M:%S" eg. "2020-04-02 15:54:45"
+    # string of format "%Y-%m-%d %H:%M:%S" eg. "2020-04-01 20:01:14", FORMAT = UTC
     timestamp=models.CharField(max_length=19, default='-')
     
     # emergency_ype contains string one of 'medical' & 'police'
@@ -21,4 +21,4 @@ class request_logs(models.Model):
     status = models.CharField(max_length=1, default='a')
 
     def __str__(self):
-        return self.emergency
+        return self.timestamp + self.emergency_type + self.core_id

@@ -6,16 +6,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from . models import request_logs
-from . serializers import rlogSerializer
+from .models import request_logs
+from .serializers import rlogSerializer
 
 from datetime import datetime
 import pytz
 
+
 class rloglist(APIView):
     def get(self, request):
         rloglist = request_logs.objects.all()
-        serializer = rlogSerializer(rloglist, many = True)
+        serializer = rlogSerializer(rloglist, many=True)
         return Response(serializer.data)
 
     def post(self, request):
@@ -32,40 +33,69 @@ class rloglist(APIView):
         """
 
         # dictionary of recieved data body
-        req_data = request.data 
+        req_data = request.data
 
-        print("request_data:\n:", req_data)
-        
+        print("Request Data:\n:", req_data)
+
         # update timestamp to use indian time (UTC -> Asia/Kolkata)
-        utc_datetime = datetime.strptime(req_data['timestamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        utc_datetime = datetime.strptime(req_data["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ")
         utc_datetime = utc_datetime.replace(tzinfo=pytz.utc)
 
-        localFormat = "%Y-%m-%d %H:%M:%S"
-        localTimeZone = pytz.timezone('Asia/Kolkata')
+        db_datetime_format = "%Y-%m-%d %H:%M:%S"
 
-        localDatetime = utc_datetime.astimezone(localTimeZone)
-            
-        req_data.update(timestamp = localDatetime.strftime(localFormat))
+        req_data['timestamp']=utc_datetime.strftime(db_datetime_format)
 
         # divide emergency string in emergency_type, core_id
-        emergency = req_data['emergency'] 
-        emergency_type, core_id = emergency.split('-')
+        emergency = req_data["emergency"]
+        emergency_type, core_id = emergency.split("-")
 
-        del req_data['emergency']
-        req_data['emergency_type'] = emergency_type
-        req_data['core_id'] = core_id
+        del req_data["emergency"]
+        req_data["emergency_type"] = emergency_type
+        req_data["core_id"] = core_id
 
         # serialize data to save in db
-        print("Saving data:\n", req_data)
+        print("Parsed data:\n", req_data)
         serializer = rlogSerializer(data=req_data)
 
         if serializer.is_valid(raise_exception=True):
-            saved_obj = serializer.save()
+            # check for previous log
+            query_set = request_logs.objects.filter(
+                emergency_type = req_data['emergency_type'],
+                core_id = req_data['core_id'],
+                status='a',
+            )
+
+            should_save_logs = True
+
+            if query_set.exists() :
+                for log in query_set:
+                    log_datetime = datetime.strptime(log.timestamp, '%Y-%m-%d %H:%M:%S')
+                    log_datetime = log_datetime.replace(tzinfo=pytz.utc)
+
+                    if isDifLessThanFiveMinutes(utc_datetime, log_datetime) :
+                        should_save_logs = False
+                        break
+            
+            if should_save_logs:
+                print("Saving Log")
+                saved_obj = serializer.save()
+            else :
+                print("Not Saving Log")
 
         # return_val
-        if req_data['latitude'] == "-1" or req_data['longitude'] == "-1" or req_data['accuracy'] == "-1":
-            return_val = emergency+"/0"
+        if (
+            req_data["latitude"] == "-1"
+            or req_data["longitude"] == "-1"
+            or req_data["accuracy"] == "-1"
+        ):
+            return_val = emergency + "/0"
         else:
-            return_val = emergency+"/1"
-        
-        return Response(return_val, )
+            return_val = emergency + "/1"
+
+        return Response(return_val,)
+
+def isDifLessThanFiveMinutes(later, before):
+    diff = later - before
+    seconds_in_day = 24 * 60 * 60
+    secs = diff.days * seconds_in_day + diff.seconds
+    return  (secs < 300)
