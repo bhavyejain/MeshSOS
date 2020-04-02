@@ -9,7 +9,8 @@ from rest_framework import status
 from . models import request_logs
 from . serializers import rlogSerializer
 
-import json
+from datetime import datetime
+import pytz
 
 class rloglist(APIView):
     def get(self, request):
@@ -18,17 +19,53 @@ class rloglist(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        # dictionary
-        log_data = request.data 
+        """
+        BODY FORMAT:
+        
+            {
+              "timestamp": "{{{PARTICLE_PUBLISHED_AT}}}",
+              "emergency": "{{{emergency}}}",
+              "latitude": "{{{latitude}}}",
+              "longitude": "{{{longitude}}}",
+              "accuracy": "{{{accuracy}}}"
+            }
+        """
 
-        serializer = rlogSerializer(data=log_data)
+        # dictionary of recieved data body
+        req_data = request.data 
+
+        print("request_data:\n:", req_data)
+        
+        # update timestamp to use indian time (UTC -> Asia/Kolkata)
+        utc_datetime = datetime.strptime(req_data['timestamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        utc_datetime = utc_datetime.replace(tzinfo=pytz.utc)
+
+        localFormat = "%Y-%m-%d %H:%M:%S"
+        localTimeZone = pytz.timezone('Asia/Kolkata')
+
+        localDatetime = utc_datetime.astimezone(localTimeZone)
+            
+        req_data.update(timestamp = localDatetime.strftime(localFormat))
+
+        # divide emergency string in emergency_type, core_id
+        emergency = req_data['emergency'] 
+        emergency_type, core_id = emergency.split('-')
+
+        del req_data['emergency']
+        req_data['emergency_type'] = emergency_type
+        req_data['core_id'] = core_id
+
+        # serialize data to save in db
+        print("Saving data:\n", req_data)
+        serializer = rlogSerializer(data=req_data)
 
         if serializer.is_valid(raise_exception=True):
             saved_obj = serializer.save()
 
-        if log_data['latitude'] == "-1" or log_data['longitude'] == "-1" or log_data['accuracy'] == "-1":
-            return_val = log_data['emergency']+"/0"
+        # return_val
+        if req_data['latitude'] == "-1" or req_data['longitude'] == "-1" or req_data['accuracy'] == "-1":
+            return_val = emergency+"/0"
         else:
-            return_val = log_data['emergency']+"/1"
+            return_val = emergency+"/1"
         
         return Response(return_val, )
