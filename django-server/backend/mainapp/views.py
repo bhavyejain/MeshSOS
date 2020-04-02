@@ -19,6 +19,18 @@ class rloglist(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        """
+        BODY FORMAT:
+        
+            {
+              "timestamp": "{{{PARTICLE_PUBLISHED_AT}}}",
+              "emergency": "{{{emergency}}}",
+              "latitude": "{{{latitude}}}",
+              "longitude": "{{{longitude}}}",
+              "accuracy": "{{{accuracy}}}"
+            }
+        """
+
         # dictionary of recieved data body
         req_data = request.data 
 

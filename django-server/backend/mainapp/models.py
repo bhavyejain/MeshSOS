@@ -1,13 +1,5 @@
 from django.db import models
 
-# {
-#   "timestamp": "{{{PARTICLE_PUBLISHED_AT}}}",
-#   "emergency": "{{{emergency}}}",
-#   "latitude": "{{{latitude}}}",
-#   "longitude": "{{{longitude}}}",
-#   "accuracy": "{{{accuracy}}}"
-# }
-
 class request_logs(models.Model):
     # string of format "%Y-%m-%d %H:%M:%S" eg. "2020-04-02 15:54:45"
     timestamp=models.CharField(max_length=19, default='-')
