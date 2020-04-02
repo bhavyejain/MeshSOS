@@ -26,4 +26,9 @@ class rloglist(APIView):
         if serializer.is_valid(raise_exception=True):
             saved_obj = serializer.save()
 
-        return Response("data", )
+        if log_data['latitude'] == "-1" or log_data['longitude'] == "-1" or log_data['accuracy'] == "-1":
+            return_val = log_data['emergency']+"/0"
+        else:
+            return_val = log_data['emergency']+"/1"
+        
+        return Response(return_val, )
