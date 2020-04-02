@@ -36,13 +36,15 @@ class rloglist(APIView):
         req_data.update(timestamp = localDatetime.strftime(localFormat))
 
         # divide emergency string in emergency_type, core_id
-        emergency = req_data['emergency']
+        emergency = req_data['emergency'] 
         emergency_type, core_id = emergency.split('-')
 
         del req_data['emergency']
-        req_data.update[('emergency_type', emergency_type),('core_id', core_id)]
+        req_data['emergency_type'] = emergency_type
+        req_data['core_id'] = core_id
 
         # serialize data to save in db
+        print("Saving data:\n", req_data)
         serializer = rlogSerializer(data=req_data)
 
         if serializer.is_valid(raise_exception=True):
