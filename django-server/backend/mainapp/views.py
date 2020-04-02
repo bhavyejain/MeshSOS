@@ -35,14 +35,21 @@ class rloglist(APIView):
             
         req_data.update(timestamp = localDatetime.strftime(localFormat))
 
+        # divide emergency string in emergency_type, core_id
+        emergency = req_data['emergency']
+        emergency_type, core_id = emergency.split('-')
+
+        del req_data['emergency']
+        req_data.update[('emergency_type', emergency_type),('core_id', core_id)]
+
         serializer = rlogSerializer(data=req_data)
 
         if serializer.is_valid(raise_exception=True):
             saved_obj = serializer.save()
 
         if req_data['latitude'] == "-1" or req_data['longitude'] == "-1" or req_data['accuracy'] == "-1":
-            return_val = req_data['emergency']+"/0"
+            return_val = emergency+"/0"
         else:
-            return_val = req_data['emergency']+"/1"
+            return_val = emergency+"/1"
         
         return Response(return_val, )
