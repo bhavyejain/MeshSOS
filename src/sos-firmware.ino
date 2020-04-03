@@ -31,19 +31,10 @@ String latitude = "-1";       // setting default to -1 to ease error detection l
 String longitude = "-1";
 String accuracy = "-1";
 
-#if Wiring_WiFi
-  // variables for WiFi toggle (testing)
-  const int wifi_btn = A5;
-  int val_wifi = 0;
-  bool wifi_flag = true;
-#endif
-
-#if Wiring_Cellular
-  // variables for Cellular toggle (testing)
-  const int cellular_btn = A5;
-  int val_cellular = 0;
-  bool cellular_flag = true;
-#endif
+// variables for WiFi toggle (testing)
+const int wifi_btn = A5;
+int val_wifi = 0;
+bool wifi_flag = true;
 
 Timer location_timer(1200000, onLocationTimeout, false);      // a timer for 20 minutes : update location of the device every 20 minutes
 bool getlocation = false;
@@ -67,13 +58,7 @@ void setup() {
   pinMode(button_med, INPUT_PULLDOWN);  // take input from medical emergency button
   pinMode(button_pol, INPUT_PULLDOWN);  // take input from police emergency button
 
-  #if Wiring_WiFi
-    pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
-  #endif
-
-  #if Wiring_Cellular
-    pinMode(cellular_btn, INPUT_PULLDOWN);    // take input from cellular toggle button
-  #endif
+  pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
 
   Particle.variable("medical", btn_medical);  // make btn_medical visible to cloud
   Particle.variable("police", btn_police);  // make btn_police visible to cloud
@@ -88,7 +73,9 @@ void setup() {
   }
 
   locator.withSubscribe(locationCallBack);
-  locator.publishLocation();      // get initial location 
+  if(WiFi.ready()){
+    locator.publishLocation();      // get initial location 
+  }
   location_timer.start();     // keep updating location regularly
 
   Serial.begin(9600);   // initialize serial output ($ particle serial monitor)
@@ -135,27 +122,15 @@ void loop() {
     delay(500);   // do not publish multiple times for a long press
   }
 
-  #if Wiring_WiFi
-    // toggle wifi for testing
-    val_wifi = digitalRead(wifi_btn);
-    if(val_wifi == 1){
-      toggleWifi();
+  // toggle wifi for testing
+  val_wifi = digitalRead(wifi_btn);
+  if(val_wifi == 1){
+    toggleWifi();
 
-      delay(500);
-    }
-  #endif
+    delay(500);
+  }
 
-  #if Wiring_Cellular
-    // toggle cellular for testing
-    val_cellular = digitalRead(cellular_btn);
-    if(val_cellular == 1){
-      toggleCellular();
-
-      delay(500);
-    }
-  #endif
-
-  if(getlocation){      // update location
+  if(getlocation && WiFi.ready()){      // update location
     locator.publishLocation();
     getlocation = false;
   }
@@ -169,7 +144,7 @@ void sendSosMessage(int index){
   }
   else{   // publish to mesh
     String filter = "m_";
-    filter.concat(publish_filters[index]);
+    filter.concat(publish_filters[index]);    // convert emergency to m_emergency
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
     publishToMesh(filter, payload);
   }
@@ -274,7 +249,6 @@ void onLocationTimeout(){
   getlocation = true;
 }
 
-#if Wiring_WiFi
 void toggleWifi(){
   if(wifi_flag){
     WiFi.disconnect();
@@ -285,20 +259,6 @@ void toggleWifi(){
     wifi_flag = true;
   }
 }
-#endif
-
-#if Wiring_Cellular
-void toggleCellular(){
-  if(cellular_flag){
-    Cellular.disconnect();
-    cellular_flag = false;
-  }
-  else{
-    Cellular.connect();
-    cellular_flag = true;
-  }
-}
-#endif
 
 void onAckTimeout(){
   if(sos_attempts < 3 && sos_sent != -1){
@@ -310,7 +270,7 @@ void onAckTimeout(){
       ack_timeout.start();    // start timer for receiving an acknowledgement
       sos_attempts++;
 
-      if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
+      if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
         publishToCloud("emergency/medical", payload);
       }
       else{   // publish to mesh
@@ -325,7 +285,7 @@ void onAckTimeout(){
       ack_timeout.start();    // start timer for receiving an acknowledgement
       sos_attempts++;
 
-      if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
+      if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
         publishToCloud("emergency/police", payload);
       }
       else{   // publish to mesh
