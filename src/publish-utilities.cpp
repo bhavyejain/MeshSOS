@@ -41,10 +41,7 @@ char* getJsonValue(const char* key, const char* obj){
 // publish the emergency message to Particle cloud
 bool publishToCloud(const char* filter, const char* message){       
 
-  // run the loop if publish() returns false => failed publish
-  while(!Particle.publish(filter, message)){    // keep trying to publish until successful
-    delay(1000);   // wait for 1 second (allowed publish rate is per second)
-  }
+  Particle.publish(filter, message, WITH_ACK);    // publish with acknowledgement (3 tries)
 
   // print to serial output
   Serial.print("PUBLISH_TO_CLOUD :: ");
