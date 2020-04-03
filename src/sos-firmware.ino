@@ -22,8 +22,8 @@ int btn_police;
 
 // strings to build the main SOS message
 const String DEVICE = System.deviceID();
-String MESSAGE_MEDICAL = "medical-";
-String MESSAGE_POLICE = "police-";
+String MESSAGE_MEDICAL = "medical-" + DEVICE;
+String MESSAGE_POLICE = "police-" + DEVICE;
 
 // device geolocation
 GoogleMapsDeviceLocator locator;
@@ -40,7 +40,7 @@ Timer location_timer(1200000, onLocationTimeout, false);      // a timer for 20 
 bool getlocation = false;
 
 int sos_attempts = 0;     // number of attempts made to send the message
-Timer ack_timeout(3000, onAckTimeout, true);      // single-shot timer of 3 seconds
+Timer ack_timeout(5000, onAckTimeout, true);      // single-shot timer of 5 seconds
 
 /** 
  * The type of sos for which acknowledgement is awaited.
@@ -60,17 +60,9 @@ void setup() {
 
   pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
 
-  Particle.variable("medical", btn_medical);  // make btn_medical visible to cloud
-  Particle.variable("police", btn_police);  // make btn_police visible to cloud
-
-  Particle.subscribe("hook-response/emergency", hookResponseHandler, ALL_DEVICES);
+  Particle.subscribe("ACK", hookResponseHandler, MY_DEVICES);
   Mesh.subscribe("m_emergency", meshEmergencyHandler);
   Mesh.subscribe("m_ack", meshAckHandler);
-
-  // augment emergency messages with device ID
-  for(int i = 0; i < 2; i++){
-    publish_messages[i] = publish_messages[i].concat(DEVICE);
-  }
 
   locator.withSubscribe(locationCallBack);
   if(WiFi.ready()){
@@ -99,16 +91,7 @@ void loop() {
     ack_timeout.start();    // start timer for receiving an acknowledgement
     sos_attempts = 1;
 
-    if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
-      locator.publishLocation();    // update device location
-      String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
-      publishToCloud("emergency/medical", payload);
-    }
-    else{   // publish to mesh
-      String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
-      publishToMesh("m_emergency/medical", payload);
-    }
-
+    sendSosMessage(0);
     delay(500);   // do not publish multiple times for a long press
   }
 
@@ -188,12 +171,14 @@ void hookResponseHandler(const char *event, const char *data){
   
   String ack = String(data);
   int i = ack.indexOf('/');
-  String message = ack.substring(0, i-1);
-  String ack_code = ack.substring(i+1);
+  String message = ack.substring(1, i).trim();
+  String ack_code = ack.substring(i+1, i+2).trim();
   String coreid = getDeviceID(message);
 
-  if(coreid == DEVICE){         // if the sending device receives the ACK don't propagate
+  if(coreid.compareTo(DEVICE) == 0){         // if the sending device receives the ACK don't propagate
     if(ack_code.equals("1")){   // if SOS call successfully registered
+      Serial.println("ACK received");
+
       sos_sent = -1;
       ack_timeout.stop();
       sos_attempts = 0;
@@ -213,12 +198,14 @@ void meshAckHandler(const char *event, const char *data){
   
   String ack = String(data);
   int i = ack.indexOf('/');
-  String message = ack.substring(0, i-1);
-  String ack_code = ack.substring(i+1);
+  String message = ack.substring(1, i).trim();
+  String ack_code = ack.substring(i+1, i+2).trim();
   String coreid = getDeviceID(message);
 
-  if(coreid == DEVICE){
+  if(coreid.compareTo(DEVICE) == 0){
     if(ack_code.equals("1")){
+      Serial.println("ACK received.");
+
       sos_sent = -1;
       ack_timeout.stop();
       sos_attempts = 0;
@@ -261,12 +248,17 @@ void toggleWifi(){
 }
 
 void onAckTimeout(){
+  Serial.println("ack_timeout TIMED OUT");
+  Serial.print("ATTEMPTS: "); Serial.println(sos_attempts);
+  
   if(sos_attempts < 3 && sos_sent != -1){
+    Serial.println("Attempting resend");
     if(sos_sent == 0){    // if medical ACK was expected
       locator.publishLocation();    // update device location
       String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
 
       sos_sent = 0;   // expect an ACK for medical emergency
+      ack_timeout.reset();
       ack_timeout.start();    // start timer for receiving an acknowledgement
       sos_attempts++;
 
@@ -282,6 +274,7 @@ void onAckTimeout(){
       String payload = createEventPayload(MESSAGE_POLICE, latitude, longitude, accuracy);     // create JSON object with all required data to be sent
 
       sos_sent = 1;   // expect an ACK for police emergency
+      ack_timeout.reset();
       ack_timeout.start();    // start timer for receiving an acknowledgement
       sos_attempts++;
 
