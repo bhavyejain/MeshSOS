@@ -108,17 +108,17 @@ void loop() {
   btn_police = val_pol;
 
   if(val_med == 1 && sos_sent == -1){   // no pending acknowledgement
-    locator.publishLocation();    // update device location
-    String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
-
     sos_sent = 0;   // expect an ACK for medical emergency
     ack_timeout.start();    // start timer for receiving an acknowledgement
     sos_attempts = 1;
 
-    if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
+    if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
+      locator.publishLocation();    // update device location
+      String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
       publishToCloud("emergency/medical", payload);
     }
     else{   // publish to mesh
+      String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
       publishToMesh("m_emergency/medical", payload);
     }
 
@@ -162,15 +162,15 @@ void loop() {
 }
 
 void sendSosMessage(int index){
-  locator.publishLocation();    // update device location
-  String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
-
-  if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
+  if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
+    locator.publishLocation();    // update device location
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
     publishToCloud(publish_filters[index], payload);
   }
   else{   // publish to mesh
     String filter = "m_";
     filter.concat(publish_filters[index]);
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
     publishToMesh(filter, payload);
   }
 }
