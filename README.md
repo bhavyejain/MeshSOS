@@ -24,5 +24,5 @@ A central server is kept active which receives the SOS calls made from the devic
 The sequential working of the project is shown in a simplified manner in the [sequence diagram](images/sequence-diagram.png).
 
 ## The Server
-The server for this project was created by [Twarit Waikar](https://github.com/IronicallySerious).
-The code can be viewed at https://github.com/IronicallySerious/sos-lab-project.
+The server for this project was created by [Kaustubh Trivedi](https://github.com/codekaust).
+The django-server directory contains the code for the server.
