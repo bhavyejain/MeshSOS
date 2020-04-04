@@ -23,6 +23,17 @@ A central server is kept active which receives the SOS calls made from the devic
 ## Working
 The sequential working of the project is shown in a simplified manner in the [sequence diagram](images/sequence-diagram.png).
 
+## Device Firmware
+The firmware for Particle Argon boards is contained in the argon-firmware directory. 
+
+The Device OS version for this project is deviceOS@1.4.4 for Argon.
+The header file publish-utilities.h contains helper functions to publish messages in the mesh or to the console.
+The INO file sos-firmware.ino contains the main firmware code for Argon boards.
+
+Please refer the readme in argon-firmware for details.
+
 ## The Server
-The server for this project was created by [Twarit Waikar](https://github.com/IronicallySerious).
-The code can be viewed at https://github.com/IronicallySerious/sos-lab-project.
+The server for this project was created by [Kaustubh Trivedi](https://github.com/codekaust).
+The django-server directory contains the code for the server.
+
+Please refer the readme in django-server for details.
