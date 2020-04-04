@@ -1,7 +1,7 @@
 /*
  * Project: MeshSOS
  * Description: A mesh networking based SOS support system for senior citizens
- * Authors: Bhavye Jain, Kaustubh Trivedi, Twarit Waikar
+ * Authors: Bhavye Jain
  * Date: 28 January 2020
  */
 
@@ -22,8 +22,8 @@ int btn_police;
 
 // strings to build the main SOS message
 const String DEVICE = System.deviceID();
-String MESSAGE_MEDICAL = "medical-";
-String MESSAGE_POLICE = "police-";
+String MESSAGE_MEDICAL = "medical-" + DEVICE;
+String MESSAGE_POLICE = "police-" + DEVICE;
 
 // device geolocation
 GoogleMapsDeviceLocator locator;
@@ -31,25 +31,16 @@ String latitude = "-1";       // setting default to -1 to ease error detection l
 String longitude = "-1";
 String accuracy = "-1";
 
-#if Wiring_WiFi
-  // variables for WiFi toggle (testing)
-  const int wifi_btn = A5;
-  int val_wifi = 0;
-  bool wifi_flag = true;
-#endif
-
-#if Wiring_Cellular
-  // variables for Cellular toggle (testing)
-  const int cellular_btn = A5;
-  int val_cellular = 0;
-  bool cellular_flag = true;
-#endif
+// variables for WiFi toggle (testing)
+const int wifi_btn = A5;
+int val_wifi = 0;
+bool wifi_flag = true;
 
 Timer location_timer(1200000, onLocationTimeout, false);      // a timer for 20 minutes : update location of the device every 20 minutes
 bool getlocation = false;
 
 int sos_attempts = 0;     // number of attempts made to send the message
-Timer ack_timeout(3000, onAckTimeout, true);      // single-shot timer of 3 seconds
+Timer ack_timeout(5000, onAckTimeout, true);      // single-shot timer of 5 seconds
 
 /** 
  * The type of sos for which acknowledgement is awaited.
@@ -59,31 +50,27 @@ Timer ack_timeout(3000, onAckTimeout, true);      // single-shot timer of 3 seco
 */
 int sos_sent = -1;  
 
+bool resend_med = false;
+bool resend_pol = false;
+
+String publish_filters[] = {"emergency/medical", "emergency/police"};
+String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
+
 void setup() {
   
   pinMode(button_med, INPUT_PULLDOWN);  // take input from medical emergency button
   pinMode(button_pol, INPUT_PULLDOWN);  // take input from police emergency button
 
-  #if Wiring_WiFi
-    pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
-  #endif
+  pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
 
-  #if Wiring_Cellular
-    pinMode(cellular_btn, INPUT_PULLDOWN);    // take input from cellular toggle button
-  #endif
-
-  Particle.variable("medical", btn_medical);  // make btn_medical visible to cloud
-  Particle.variable("police", btn_police);  // make btn_police visible to cloud
-
-  Particle.subscribe("hook-response/emergency", hookResponseHandler, ALL_DEVICES);
+  Particle.subscribe("ACK", hookResponseHandler, MY_DEVICES);
   Mesh.subscribe("m_emergency", meshEmergencyHandler);
-
-  // augment emergency messages with device ID
-  MESSAGE_MEDICAL.concat(DEVICE);
-  MESSAGE_POLICE.concat(DEVICE);
+  Mesh.subscribe("m_ack", meshAckHandler);
 
   locator.withSubscribe(locationCallBack);
-  locator.publishLocation();      // get initial location 
+  if(WiFi.ready()){
+    locator.publishLocation();      // get initial location 
+  }
   location_timer.start();     // keep updating location regularly
 
   Serial.begin(9600);   // initialize serial output ($ particle serial monitor)
@@ -102,56 +89,79 @@ void loop() {
   btn_medical = val_med;
   btn_police = val_pol;
 
-  if(val_med == 1){
-    locator.publishLocation();    // update device location
-    String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
+  if(val_med == 1 && sos_sent == -1){   // no pending acknowledgement
+    sos_sent = 0;   // expect an ACK for medical emergency
+    ack_timeout.start();    // start timer for receiving an acknowledgement
+    sos_attempts = 1;
 
-    if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
-      publishToCloud("emergency/medical", payload);
-    }
-    else{   // publish to mesh
-      publishToMesh("m_emergency/medical", payload);
-    }
-
-    delay(500);   // do not publish multiple times for a long press
-  }
-  if(val_pol == 1){
-    locator.publishLocation();    // update device location
-    String payload = createEventPayload(MESSAGE_POLICE, latitude, longitude, accuracy);     // create JSON object with all required data to be sent
-
-    if(Particle.connected()){     // if the device is connected to the cloud, directly publish message to the cloud
-      publishToCloud("emergency/police", payload);
-    }
-    else{   // publish to mesh
-      publishToMesh("m_emergency/police", payload);
-    }
-
+    sendSosMessage(0);
     delay(500);   // do not publish multiple times for a long press
   }
 
-  #if Wiring_WiFi
-    // toggle wifi for testing
-    val_wifi = digitalRead(wifi_btn);
-    if(val_wifi == 1){
-      toggleWifi();
+  if(val_pol == 1 && sos_sent == -1){
 
-      delay(500);
+    sos_sent = 1;   // expect an ACK for police emergency
+    ack_timeout.start();    // start timer for receiving an acknowledgement
+    sos_attempts = 1;
+
+    sendSosMessage(1);
+    delay(500);   // do not publish multiple times for a long press
+  }
+
+  if(sos_sent != -1){
+    if(resend_med){
+      resendSosMessage(0);
+      resend_med = false;
     }
-  #endif
-
-  #if Wiring_Cellular
-    // toggle cellular for testing
-    val_cellular = digitalRead(cellular_btn);
-    if(val_cellular == 1){
-      toggleCellular();
-
-      delay(500);
+    if(resend_pol){
+      resendSosMessage(1);
+      resend_pol = false;
     }
-  #endif
+  }
 
-  if(getlocation){      // update location
+  // toggle wifi for testing
+  val_wifi = digitalRead(wifi_btn);
+  if(val_wifi == 1){
+    toggleWifi();
+
+    delay(500);
+  }
+
+  if(getlocation && WiFi.ready()){      // update location
     locator.publishLocation();
     getlocation = false;
+  }
+}
+
+void sendSosMessage(int index){
+  if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
+    locator.publishLocation();    // update device location
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
+    publishToCloud(publish_filters[index], payload);
+  }
+  else{   // publish to mesh
+    String filter = "m_";
+    filter.concat(publish_filters[index]);    // convert emergency to m_emergency
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
+    publishToMesh(filter, payload);
+  }
+}
+
+void resendSosMessage(int index){     // avoid uneccessary request for location and handle case where we are resending with locations values as -1
+  if(WiFi.ready()){
+    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0){    // ask for location only if existing values are -1 (no location)
+      locator.publishLocation();
+    }
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
+    ack_timeout.start();    // start timer for receiving an acknowledgement
+    publishToCloud(publish_filters[index], payload);
+  }
+  else{
+    String filter = "m_";
+    filter.concat(publish_filters[index]);
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
+    ack_timeout.start();    // start timer for receiving an acknowledgement
+    publishToMesh(filter, payload);
   }
 }
 
@@ -189,7 +199,53 @@ void meshEmergencyHandler(const char *event, const char *data){
 
 // handle responses from the server (via webhook)
 void hookResponseHandler(const char *event, const char *data){     
-  // TODO : send ack to SOS callee device
+  Serial.println("hookResponseHandler : " + DEVICE);
+  
+  String ack = String(data);
+  int i = ack.indexOf('/');
+  String message = ack.substring(1, i).trim();
+  String ack_code = ack.substring(i+1, i+2).trim();
+  String coreid = getDeviceID(message);
+
+  if(coreid.compareTo(DEVICE) == 0){         // if the sending device receives the ACK don't propagate
+    if(ack_code.equals("1")){   // if SOS call successfully registered
+      Serial.println("ACK received");
+
+      sos_sent = -1;
+      ack_timeout.stop();
+      sos_attempts = 0;
+    }
+    else{     // if error
+      onAckTimeout();
+    }
+  }
+  else{       // propagate in mesh
+    Mesh.publish("m_ack", ack);
+  } 
+}
+
+// handle acknowlegdements published in mesh
+void meshAckHandler(const char *event, const char *data){
+  Serial.println("meshAckHandler : " + DEVICE);
+  
+  String ack = String(data);
+  int i = ack.indexOf('/');
+  String message = ack.substring(1, i).trim();
+  String ack_code = ack.substring(i+1, i+2).trim();
+  String coreid = getDeviceID(message);
+
+  if(coreid.compareTo(DEVICE) == 0){
+    if(ack_code.equals("1")){
+      Serial.println("ACK received.");
+
+      sos_sent = -1;
+      ack_timeout.stop();
+      sos_attempts = 0;
+    }
+    else{
+      onAckTimeout();
+    }
+  }
 }
 
 // function to extract the device ID from received augmented message
@@ -212,7 +268,6 @@ void onLocationTimeout(){
   getlocation = true;
 }
 
-#if Wiring_WiFi
 void toggleWifi(){
   if(wifi_flag){
     WiFi.disconnect();
@@ -223,21 +278,27 @@ void toggleWifi(){
     wifi_flag = true;
   }
 }
-#endif
-
-#if Wiring_Cellular
-void toggleCellular(){
-  if(cellular_flag){
-    Cellular.disconnect();
-    cellular_flag = false;
-  }
-  else{
-    Cellular.connect();
-    cellular_flag = true;
-  }
-}
-#endif
 
 void onAckTimeout(){
-
+  Serial.println("ack_timeout TIMED OUT");
+  Serial.print("ATTEMPTS: "); Serial.println(sos_attempts);
+  
+  if(sos_attempts < 3 && sos_sent != -1){
+    Serial.println("Attempting resend");
+    if(sos_sent == 0){    // if medical ACK was expected
+      sos_sent = 0;   // expect an ACK for medical emergency
+      sos_attempts++;
+      resend_med = true;
+    }
+    else if(sos_sent == 1){     // if police ACK was expected
+      sos_sent = 1;   // expect an ACK for police emergency
+      sos_attempts++;
+      resend_pol = true;
+    }
+  }
+  else{   // if number of attempts reaches 3, reset the process, SOS request has failed
+    sos_sent = -1;
+    sos_attempts = 0;
+    Serial.println("Sending SOS request failed!");
+  }
 }
