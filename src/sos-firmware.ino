@@ -137,7 +137,6 @@ void sendSosMessage(int index){
   if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
     locator.publishLocation();    // update device location
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
-    delay(7000);
     publishToCloud(publish_filters[index], payload);
   }
   else{   // publish to mesh
