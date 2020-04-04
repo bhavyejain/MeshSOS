@@ -50,6 +50,9 @@ Timer ack_timeout(5000, onAckTimeout, true);      // single-shot timer of 5 seco
 */
 int sos_sent = -1;  
 
+bool resend_med = false;
+bool resend_pol = false;
+
 String publish_filters[] = {"emergency/medical", "emergency/police"};
 String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
 
@@ -105,6 +108,17 @@ void loop() {
     delay(500);   // do not publish multiple times for a long press
   }
 
+  if(sos_sent != -1){
+    if(resend_med){
+      resendSosMessage(0);
+      resend_med = false;
+    }
+    if(resend_pol){
+      resendSosMessage(1);
+      resend_pol = false;
+    }
+  }
+
   // toggle wifi for testing
   val_wifi = digitalRead(wifi_btn);
   if(val_wifi == 1){
@@ -123,12 +137,31 @@ void sendSosMessage(int index){
   if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
     locator.publishLocation();    // update device location
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
+    delay(7000);
     publishToCloud(publish_filters[index], payload);
   }
   else{   // publish to mesh
     String filter = "m_";
     filter.concat(publish_filters[index]);    // convert emergency to m_emergency
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
+    publishToMesh(filter, payload);
+  }
+}
+
+void resendSosMessage(int index){     // avoid uneccessary request for location and handle case where we are resending with locations values as -1
+  if(WiFi.ready()){
+    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0){    // ask for location only if existing values are -1 (no location)
+      locator.publishLocation();
+    }
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
+    ack_timeout.start();    // start timer for receiving an acknowledgement
+    publishToCloud(publish_filters[index], payload);
+  }
+  else{
+    String filter = "m_";
+    filter.concat(publish_filters[index]);
+    String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
+    ack_timeout.start();    // start timer for receiving an acknowledgement
     publishToMesh(filter, payload);
   }
 }
@@ -254,36 +287,14 @@ void onAckTimeout(){
   if(sos_attempts < 3 && sos_sent != -1){
     Serial.println("Attempting resend");
     if(sos_sent == 0){    // if medical ACK was expected
-      locator.publishLocation();    // update device location
-      String payload = createEventPayload(MESSAGE_MEDICAL, latitude, longitude, accuracy);    // create JSON object with all required data to be sent
-
       sos_sent = 0;   // expect an ACK for medical emergency
-      ack_timeout.reset();
-      ack_timeout.start();    // start timer for receiving an acknowledgement
       sos_attempts++;
-
-      if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
-        publishToCloud("emergency/medical", payload);
-      }
-      else{   // publish to mesh
-        publishToMesh("m_emergency/medical", payload);
-      }
+      resend_med = true;
     }
     else if(sos_sent == 1){     // if police ACK was expected
-      locator.publishLocation();    // update device location
-      String payload = createEventPayload(MESSAGE_POLICE, latitude, longitude, accuracy);     // create JSON object with all required data to be sent
-
       sos_sent = 1;   // expect an ACK for police emergency
-      ack_timeout.reset();
-      ack_timeout.start();    // start timer for receiving an acknowledgement
       sos_attempts++;
-
-      if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
-        publishToCloud("emergency/police", payload);
-      }
-      else{   // publish to mesh
-        publishToMesh("m_emergency/police", payload);
-      }
+      resend_pol = true;
     }
   }
   else{   // if number of attempts reaches 3, reset the process, SOS request has failed
