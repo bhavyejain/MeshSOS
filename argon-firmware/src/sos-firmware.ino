@@ -1,12 +1,14 @@
 /*
  * Project: MeshSOS
  * Description: A mesh networking based SOS support system for senior citizens
- * Authors: Bhavye Jain
+ * Author: Bhavye Jain
  * Date: 28 January 2020
  */
 
 #include "google-maps-device-locator.h"
 #include "publish-utilities.h"
+
+SYSTEM_MODE(SEMI_AUTOMATIC);    // Start executing setup() and loop() even if not connected to cloud
 
 // variables for I/O
 const int button_med = A1;
@@ -50,6 +52,7 @@ Timer ack_timeout(5000, onAckTimeout, true);      // single-shot timer of 5 seco
 */
 int sos_sent = -1;  
 
+// flags to check what kind of message to re-send
 bool resend_med = false;
 bool resend_pol = false;
 
@@ -57,11 +60,24 @@ String publish_filters[] = {"emergency/medical", "emergency/police"};
 String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
 
 void setup() {
+  delay(3000);
+
+  Serial.println("**** SETUP STARTED ****");
+
+  WiFi.on();
+  Serial.println("**** CONNECTING TO WIFI ****");
+  WiFi.connect();
+  delay(2000);
   
   pinMode(button_med, INPUT_PULLDOWN);  // take input from medical emergency button
   pinMode(button_pol, INPUT_PULLDOWN);  // take input from police emergency button
 
   pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
+
+  if(WiFi.ready()){
+    Serial.println("**** SETUP : CONNECTING TO CLOUD ****");
+    Particle.connect();
+  }
 
   Particle.subscribe("ACK", hookResponseHandler, MY_DEVICES);
   Mesh.subscribe("m_emergency", meshEmergencyHandler);
@@ -74,12 +90,19 @@ void setup() {
   location_timer.start();     // keep updating location regularly
 
   Serial.begin(9600);   // initialize serial output ($ particle serial monitor)
-  Serial.print("Device: "); Serial.println(DEVICE); // print device ID
-  Serial.print("Location::  "); Serial.println("lat: " + String(latitude) + " lon: " + String(longitude) + "  acc: " + String(accuracy));
+  Serial.print("DEVICE: "); Serial.println(DEVICE); // print device ID
+  Serial.print("LOCATION::  "); Serial.println("lat: " + String(latitude) + " lon: " + String(longitude) + "  acc: " + String(accuracy));
 }
 
 
 void loop() {
+
+  if(!Particle.connected()){
+    if(WiFi.ready()){
+      Serial.println("**** LOOP : CONNECTING TO CLOUD ****");
+      Particle.connect();
+    }
+  }
 
   // read inputs from respective buttons
   val_med = digitalRead(button_med);  
@@ -90,6 +113,8 @@ void loop() {
   btn_police = val_pol;
 
   if(val_med == 1 && sos_sent == -1){   // no pending acknowledgement
+    Serial.println("btn_med pressed");
+
     sos_sent = 0;   // expect an ACK for medical emergency
     ack_timeout.start();    // start timer for receiving an acknowledgement
     sos_attempts = 1;
@@ -99,6 +124,7 @@ void loop() {
   }
 
   if(val_pol == 1 && sos_sent == -1){
+    Serial.println("btn_pol pressed");
 
     sos_sent = 1;   // expect an ACK for police emergency
     ack_timeout.start();    // start timer for receiving an acknowledgement
@@ -199,7 +225,7 @@ void meshEmergencyHandler(const char *event, const char *data){
 
 // handle responses from the server (via webhook)
 void hookResponseHandler(const char *event, const char *data){     
-  Serial.println("hookResponseHandler : " + DEVICE);
+  Serial.println("HOOK RESPONSE HANDLER : " + DEVICE);
   
   String ack = String(data);
   int i = ack.indexOf('/');
@@ -209,7 +235,7 @@ void hookResponseHandler(const char *event, const char *data){
 
   if(coreid.compareTo(DEVICE) == 0){         // if the sending device receives the ACK don't propagate
     if(ack_code.equals("1")){   // if SOS call successfully registered
-      Serial.println("ACK received");
+      Serial.println("# ACK RECEIVED #");
 
       sos_sent = -1;
       ack_timeout.stop();
@@ -226,7 +252,7 @@ void hookResponseHandler(const char *event, const char *data){
 
 // handle acknowlegdements published in mesh
 void meshAckHandler(const char *event, const char *data){
-  Serial.println("meshAckHandler : " + DEVICE);
+  Serial.println("MESH ACK HANDLER : " + DEVICE);
   
   String ack = String(data);
   int i = ack.indexOf('/');
@@ -236,7 +262,7 @@ void meshAckHandler(const char *event, const char *data){
 
   if(coreid.compareTo(DEVICE) == 0){
     if(ack_code.equals("1")){
-      Serial.println("ACK received.");
+      Serial.println("# ACK RECEIVED. #");
 
       sos_sent = -1;
       ack_timeout.stop();
@@ -271,20 +297,22 @@ void onLocationTimeout(){
 void toggleWifi(){
   if(wifi_flag){
     WiFi.disconnect();
+    WiFi.off();
     wifi_flag = false;
   }
   else{
+    WiFi.on();
     WiFi.connect();
     wifi_flag = true;
   }
 }
 
 void onAckTimeout(){
-  Serial.println("ack_timeout TIMED OUT");
+  Serial.println("** ack_timeout TIMED OUT **");
   Serial.print("ATTEMPTS: "); Serial.println(sos_attempts);
   
   if(sos_attempts < 3 && sos_sent != -1){
-    Serial.println("Attempting resend");
+    Serial.println("** ATTEMPTING RESEND **");
     if(sos_sent == 0){    // if medical ACK was expected
       sos_sent = 0;   // expect an ACK for medical emergency
       sos_attempts++;
@@ -299,6 +327,6 @@ void onAckTimeout(){
   else{   // if number of attempts reaches 3, reset the process, SOS request has failed
     sos_sent = -1;
     sos_attempts = 0;
-    Serial.println("Sending SOS request failed!");
+    Serial.println("** SENDING SOS FAILED! **");
   }
 }
