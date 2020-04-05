@@ -81,6 +81,9 @@ void setup() {
   Mesh.subscribe("m_emergency", meshEmergencyHandler);
   Mesh.subscribe("m_ack", meshAckHandler);
 
+  Serial.println("**** SETUP : CONNECTING TO MESH ****");
+  Mesh.connect();
+
   Serial.println("**** SETUP : CONNECTING TO CLOUD ****");
   Particle.connect();   // connect after subscribes to separate threads, otherwise, threads would be tied
 
@@ -232,7 +235,10 @@ void hookResponseHandler(const char *event, const char *data){
   String coreid = getDeviceID(message);
 
   if(coreid.compareTo(DEVICE) == 0){         // if the sending device receives the ACK don't propagate
-    if(ack_code.equals("1")){   // if SOS call successfully registered
+    if(sos_sent == -1){
+      Serial.println("# ACK DUMPED #");
+    }
+    else if(ack_code.equals("1")){   // if SOS call successfully registered
       Serial.println("# ACK RECEIVED #");
 
       sos_sent = -1;
@@ -244,6 +250,7 @@ void hookResponseHandler(const char *event, const char *data){
     }
   }
   else{       // propagate in mesh
+    Serial.println("** PUBLISH ACK IN MESH **");
     Mesh.publish("m_ack", ack);
   } 
 }
@@ -251,14 +258,16 @@ void hookResponseHandler(const char *event, const char *data){
 // handle acknowlegdements published in mesh
 void meshAckHandler(const char *event, const char *data){
   Serial.println("MESH ACK HANDLER : " + DEVICE);
+  Serial.println("ACK: " + String(data));
   
   String ack = String(data);
   int i = ack.indexOf('/');
   String message = ack.substring(1, i).trim();
   String ack_code = ack.substring(i+1, i+2).trim();
   String coreid = getDeviceID(message);
+  Serial.println("coreid: " + coreid);
 
-  if(coreid.compareTo(DEVICE) == 0){
+  if(coreid.compareTo(DEVICE) == 0 && sos_sent != -1){
     if(ack_code.equals("1")){
       Serial.println("# ACK RECEIVED. #");
 
@@ -269,6 +278,9 @@ void meshAckHandler(const char *event, const char *data){
     else{
       onAckTimeout();
     }
+  }
+  else{
+    Serial.println("# ACK DUMPED #");
   }
 }
 
