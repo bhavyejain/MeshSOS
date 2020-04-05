@@ -52,7 +52,6 @@ bool publishToMesh(const char* filter, const char* message){
     }
 
     Serial.print("PUBLISH_TO_MESH :: ");
-    Serial.println(filter);
     Serial.println(message);
 
     return true;
