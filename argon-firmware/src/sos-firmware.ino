@@ -7,6 +7,7 @@
 
 #include "google-maps-device-locator.h"
 #include "publish-utilities.h"
+#include "JsonParserGeneratorRK.h"
 
 SYSTEM_THREAD(ENABLED);         // Enable application loop and system processes to execute independently in separate threads (Now execution is never blocked by a system interrupt)
 SYSTEM_MODE(SEMI_AUTOMATIC);    // Start executing setup() and loop() even if not connected to cloud
@@ -284,6 +285,30 @@ void meshAckHandler(const char *event, const char *data){
   }
 }
 
+void onAckTimeout(){
+  Serial.println("** ack_timeout TIMED OUT **");
+  Serial.print("ATTEMPTS: "); Serial.println(sos_attempts);
+  
+  if(sos_attempts < 3 && sos_sent != -1){
+    Serial.println("** ATTEMPTING RESEND **");
+    if(sos_sent == 0){    // if medical ACK was expected
+      sos_sent = 0;   // expect an ACK for medical emergency
+      sos_attempts++;
+      resend_med = true;
+    }
+    else if(sos_sent == 1){     // if police ACK was expected
+      sos_sent = 1;   // expect an ACK for police emergency
+      sos_attempts++;
+      resend_pol = true;
+    }
+  }
+  else{   // if number of attempts reaches 3, reset the process, SOS request has failed
+    sos_sent = -1;
+    sos_attempts = 0;
+    Serial.println("** SENDING SOS FAILED! **");
+  }
+}
+
 // function to extract the device ID from received augmented message
 String getDeviceID(String data){    
 
@@ -317,26 +342,24 @@ void toggleWifi(){
   }
 }
 
-void onAckTimeout(){
-  Serial.println("** ack_timeout TIMED OUT **");
-  Serial.print("ATTEMPTS: "); Serial.println(sos_attempts);
+// get value by key from JSON string
+String getJsonValue(const char* key, const char* obj){
+  JsonParserStatic<512, 40> jp;
+  jp.clear();
+  jp.addString(obj);
   
-  if(sos_attempts < 3 && sos_sent != -1){
-    Serial.println("** ATTEMPTING RESEND **");
-    if(sos_sent == 0){    // if medical ACK was expected
-      sos_sent = 0;   // expect an ACK for medical emergency
-      sos_attempts++;
-      resend_med = true;
-    }
-    else if(sos_sent == 1){     // if police ACK was expected
-      sos_sent = 1;   // expect an ACK for police emergency
-      sos_attempts++;
-      resend_pol = true;
-    }
+  if(!jp.parse()){
+    Serial.println("Parsing JSON failed!");
+    return "";
   }
-  else{   // if number of attempts reaches 3, reset the process, SOS request has failed
-    sos_sent = -1;
-    sos_attempts = 0;
-    Serial.println("** SENDING SOS FAILED! **");
+  
+  String value;
+  if(!jp.getOuterValueByKey(key, value)){
+    Serial.println("Fetching JSON value failed!");
+    return "";
   }
+  
+  jp.nullTerminate();
+  
+  return value;
 }
