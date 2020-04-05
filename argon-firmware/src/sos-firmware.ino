@@ -8,6 +8,7 @@
 #include "google-maps-device-locator.h"
 #include "publish-utilities.h"
 
+SYSTEM_THREAD(ENABLED);         // Enable application loop and system processes to execute independently in separate threads (Now execution is never blocked by a system interrupt)
 SYSTEM_MODE(SEMI_AUTOMATIC);    // Start executing setup() and loop() even if not connected to cloud
 
 // variables for I/O
@@ -59,13 +60,15 @@ bool resend_pol = false;
 String publish_filters[] = {"emergency/medical", "emergency/police"};
 String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
 
+int i = 0;
+
 void setup() {
   delay(3000);
 
   Serial.println("**** SETUP STARTED ****");
 
   WiFi.on();
-  Serial.println("**** CONNECTING TO WIFI ****");
+  Serial.println("**** SETUP : CONNECTING TO WIFI ****");
   WiFi.connect();
   delay(2000);
   
@@ -74,14 +77,12 @@ void setup() {
 
   pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
 
-  if(WiFi.ready()){
-    Serial.println("**** SETUP : CONNECTING TO CLOUD ****");
-    Particle.connect();
-  }
-
   Particle.subscribe("ACK", hookResponseHandler, MY_DEVICES);
   Mesh.subscribe("m_emergency", meshEmergencyHandler);
   Mesh.subscribe("m_ack", meshAckHandler);
+
+  Serial.println("**** SETUP : CONNECTING TO CLOUD ****");
+  Particle.connect();   // connect after subscribes to separate threads, otherwise, threads would be tied
 
   locator.withSubscribe(locationCallBack);
   if(WiFi.ready()){
@@ -94,14 +95,11 @@ void setup() {
   Serial.print("LOCATION::  "); Serial.println("lat: " + String(latitude) + " lon: " + String(longitude) + "  acc: " + String(accuracy));
 }
 
-
 void loop() {
 
-  if(!Particle.connected()){
-    if(WiFi.ready()){
-      Serial.println("**** LOOP : CONNECTING TO CLOUD ****");
-      Particle.connect();
-    }
+  if(!WiFi.ready() && !WiFi.connecting()){
+    Serial.println("**** LOOP : WIFI CONNECTING ****");
+    WiFi.connect();
   }
 
   // read inputs from respective buttons
@@ -113,7 +111,7 @@ void loop() {
   btn_police = val_pol;
 
   if(val_med == 1 && sos_sent == -1){   // no pending acknowledgement
-    Serial.println("btn_med pressed");
+    Serial.println("** btn_med PRESSED **");
 
     sos_sent = 0;   // expect an ACK for medical emergency
     ack_timeout.start();    // start timer for receiving an acknowledgement
@@ -124,7 +122,7 @@ void loop() {
   }
 
   if(val_pol == 1 && sos_sent == -1){
-    Serial.println("btn_pol pressed");
+    Serial.println("** btn_pol PRESSED **");
 
     sos_sent = 1;   // expect an ACK for police emergency
     ack_timeout.start();    // start timer for receiving an acknowledgement
