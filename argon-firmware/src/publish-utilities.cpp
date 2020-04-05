@@ -18,24 +18,25 @@ char* createEventPayload(const char* emergency, const char* lat, const char* lon
 }
 
 // get value by key from JSON string
-char* getJsonValue(const char* key, const char* obj){
-  // JsonParserStatic<512, 20> jp;
-  // jp.clear();
-  // jp.addString(obj);
+const char* getJsonValue(const char* key, const char* obj){
+  JsonParserStatic<512, 20> jp;
+  jp.clear();
+  jp.addString(obj);
   
-  // if(!jp.parse()){
-  //   Serial.println("Parsing JSON failed!");
-  //   return "";
-  // }
+  if(!jp.parse()){
+    Serial.println("Parsing JSON failed!");
+    return "";
+  }
   
-  // char* value;
-  // if(!jp.getOuterValueByKey(key, value)){
-  //   Serial.println("Fetching JSON value failed!");
-  //   return "";
-  // }
+  String value;
+  if(!jp.getOuterValueByKey(key, value)){
+    Serial.println("Fetching JSON value failed!");
+    return "";
+  }
 
-  // jp.nullTerminate();
-  // return value;
+  jp.nullTerminate();
+  const char* result = value.c_str();
+  return result;
 }
 
 // publish the emergency message to Particle cloud
