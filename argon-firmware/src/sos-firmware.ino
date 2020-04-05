@@ -61,7 +61,7 @@ bool resend_pol = false;
 String publish_filters[] = {"emergency/medical", "emergency/police"};
 String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
 
-int i = 0;
+JsonParserStatic<512, 40> jp;
 
 void setup() {
   delay(3000);
@@ -170,6 +170,7 @@ void sendSosMessage(int index){
   else{   // publish to mesh
     String filter = "m_";
     filter.concat(publish_filters[index]);    // convert emergency to m_emergency
+    filter.concat("/0");    // flag : don't update location
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
     publishToMesh(filter, payload);
   }
@@ -177,7 +178,7 @@ void sendSosMessage(int index){
 
 void resendSosMessage(int index){     // avoid uneccessary request for location and handle case where we are resending with locations values as -1
   if(WiFi.ready()){
-    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0){    // ask for location only if existing values are -1 (no location)
+    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0 || accuracy.compareTo("-1") == 0){    // ask for location only if existing values are -1 (no location)
       locator.publishLocation();
     }
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
@@ -187,6 +188,12 @@ void resendSosMessage(int index){     // avoid uneccessary request for location 
   else{
     String filter = "m_";
     filter.concat(publish_filters[index]);
+    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0 || accuracy.compareTo("-1") == 0){
+      filter.concat("/1");  // flag : update location
+    }
+    else{
+      filter.concat("/0"); // flag : don't update location
+    }
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
     ack_timeout.start();    // start timer for receiving an acknowledgement
     publishToMesh(filter, payload);
@@ -207,20 +214,31 @@ void meshEmergencyHandler(const char *event, const char *data){
 
   String filter = event;
   String message = data;
+  String payload;
 
   int i = filter.indexOf('/');
-  String e_type = filter.substring((i+1));    // get the emergency type
+  int j = filter.indexOf('/', i+1);
+  String e_type = filter.substring((i+1), j).trim();    // get the emergency type
+  String flag = filter.substring(j+1).trim();
+
+  if(flag.compareTo("1") == 0){
+    String emergency = getJsonValue("emergency", message);
+    payload = createEventPayload(emergency, latitude, longitude, accuracy);
+  }
+  else{
+    payload = message;
+  }
 
   if(e_type.equals("medical")){
 
     if(Particle.connected()){     // if the device is connected to the cloud, publish message to the cloud
-      publishToCloud("emergency/medical", message);
+      publishToCloud("emergency/medical", payload);
     }
   }
   if(e_type.equals("police")){
 
     if(Particle.connected()){     // if the device is connected to the cloud, publish message to the cloud
-      publishToCloud("emergency/police", message);
+      publishToCloud("emergency/police", payload);
     }
   }
 }
@@ -344,7 +362,6 @@ void toggleWifi(){
 
 // get value by key from JSON string
 String getJsonValue(const char* key, const char* obj){
-  JsonParserStatic<512, 40> jp;
   jp.clear();
   jp.addString(obj);
   

@@ -14,7 +14,10 @@ char* createEventPayload(const char* emergency, const char* lat, const char* lon
     jw.insertKeyValue("accuracy", acc);
   }
 
-  return jw.getBuffer();
+  char* payload = jw.getBuffer();
+  jw.nullTerminate();
+
+  return payload;
 }
 
 // publish the emergency message to Particle cloud
@@ -49,6 +52,7 @@ bool publishToMesh(const char* filter, const char* message){
     }
 
     Serial.print("PUBLISH_TO_MESH :: ");
+    Serial.println(filter);
     Serial.println(message);
 
     return true;
