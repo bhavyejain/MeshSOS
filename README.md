@@ -26,10 +26,6 @@ The sequential working of the project is shown in a simplified manner in the [se
 ## Device Firmware
 The firmware for Particle Argon boards is contained in the argon-firmware directory. 
 
-The Device OS version for this project is deviceOS@1.4.4 for Argon.
-The header file publish-utilities.h contains helper functions to publish messages in the mesh or to the console.
-The INO file sos-firmware.ino contains the main firmware code for Argon boards.
-
 Please refer the readme in argon-firmware for details.
 
 ## The Server
