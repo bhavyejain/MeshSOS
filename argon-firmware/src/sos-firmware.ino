@@ -2,11 +2,13 @@
  * Project: MeshSOS
  * Description: A mesh networking based SOS support system for senior citizens
  * Author: Bhavye Jain
- * Date: 28 January 2020
+ * Version: 3.0.2
+ * Date: 5 April 2020
  */
 
 #include "google-maps-device-locator.h"
 #include "publish-utilities.h"
+#include "JsonParserGeneratorRK.h"
 
 SYSTEM_THREAD(ENABLED);         // Enable application loop and system processes to execute independently in separate threads (Now execution is never blocked by a system interrupt)
 SYSTEM_MODE(SEMI_AUTOMATIC);    // Start executing setup() and loop() even if not connected to cloud
@@ -60,26 +62,27 @@ bool resend_pol = false;
 String publish_filters[] = {"emergency/medical", "emergency/police"};
 String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
 
-int i = 0;
-
 void setup() {
-  delay(3000);
+  delay(3000);      // this delay allows to open serial monitor in time :-)
 
   Serial.println("**** SETUP STARTED ****");
 
-  WiFi.on();
+  WiFi.on();        // manually turn on WiFi before connectting
   Serial.println("**** SETUP : CONNECTING TO WIFI ****");
-  WiFi.connect();
-  delay(2000);
+  WiFi.connect();   // connect WiFi manually (SEMI_AUTOMATIC mode)
+  delay(1000);
   
   pinMode(button_med, INPUT_PULLDOWN);  // take input from medical emergency button
   pinMode(button_pol, INPUT_PULLDOWN);  // take input from police emergency button
 
   pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
 
-  Particle.subscribe("ACK", hookResponseHandler, MY_DEVICES);
-  Mesh.subscribe("m_emergency", meshEmergencyHandler);
-  Mesh.subscribe("m_ack", meshAckHandler);
+  Particle.subscribe("ACK", hookResponseHandler, MY_DEVICES);   // subscribe to acknowledgements from server
+  Mesh.subscribe("m_emergency", meshEmergencyHandler);      // subscribe to emergency messages being broadcasted in the mesh
+  Mesh.subscribe("m_ack", meshAckHandler);    // subscribe to acknowledgements being broadcasted in mesh
+
+  Serial.println("**** SETUP : CONNECTING TO MESH ****");
+  Mesh.connect();       // connect after subscribes to separate threads, otherwise, threads would be tied
 
   Serial.println("**** SETUP : CONNECTING TO CLOUD ****");
   Particle.connect();   // connect after subscribes to separate threads, otherwise, threads would be tied
@@ -90,7 +93,7 @@ void setup() {
   }
   location_timer.start();     // keep updating location regularly
 
-  Serial.begin(9600);   // initialize serial output ($ particle serial monitor)
+  Serial.begin(9600);   // initialize serial output
   Serial.print("DEVICE: "); Serial.println(DEVICE); // print device ID
   Serial.print("LOCATION::  "); Serial.println("lat: " + String(latitude) + " lon: " + String(longitude) + "  acc: " + String(accuracy));
 }
@@ -132,7 +135,7 @@ void loop() {
     delay(500);   // do not publish multiple times for a long press
   }
 
-  if(sos_sent != -1){
+  if(sos_sent != -1){     // check if resending some message is required
     if(resend_med){
       resendSosMessage(0);
       resend_med = false;
@@ -157,6 +160,7 @@ void loop() {
   }
 }
 
+// send SOS distress message on basis of internet connectivity
 void sendSosMessage(int index){
   if(WiFi.ready()){     // if the device is connected to the cloud, directly publish message to the cloud
     locator.publishLocation();    // update device location
@@ -166,23 +170,37 @@ void sendSosMessage(int index){
   else{   // publish to mesh
     String filter = "m_";
     filter.concat(publish_filters[index]);    // convert emergency to m_emergency
+    filter.concat("/0");    // flag : don't update location
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);     // create JSON object with all required data to be sent
     publishToMesh(filter, payload);
   }
 }
 
+// handles resending of SOS messages and adding of update location data flag
 void resendSosMessage(int index){     // avoid uneccessary request for location and handle case where we are resending with locations values as -1
-  if(WiFi.ready()){
-    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0){    // ask for location only if existing values are -1 (no location)
+  if(WiFi.ready()){   // use direct WiFi connectivity
+    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0 || accuracy.compareTo("-1") == 0){    // ask for location only if existing values are -1 (no location)
       locator.publishLocation();
     }
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
     ack_timeout.start();    // start timer for receiving an acknowledgement
     publishToCloud(publish_filters[index], payload);
   }
-  else{
+  else{   // use the mesh system
     String filter = "m_";
     filter.concat(publish_filters[index]);
+    if(latitude.compareTo("-1") == 0 || longitude.compareTo("-1") == 0 || accuracy.compareTo("-1") == 0){
+      /**
+       * If this flag is set to 1, the device which will finally publish the message to the
+       * particle cloud will swap the location data from the incoming data with its own location
+       * data. This flag is set to 1 if the sending device is unable to update its location
+       * and the values are still -1 (which means it cannot provide its location).
+       * */
+      filter.concat("/1");  // flag : update location
+    }
+    else{
+      filter.concat("/0"); // flag : don't update location
+    }
     String payload = createEventPayload(publish_messages[index], latitude, longitude, accuracy);    // create JSON object with all required data to be sent
     ack_timeout.start();    // start timer for receiving an acknowledgement
     publishToMesh(filter, payload);
@@ -203,20 +221,31 @@ void meshEmergencyHandler(const char *event, const char *data){
 
   String filter = event;
   String message = data;
+  String payload;
 
   int i = filter.indexOf('/');
-  String e_type = filter.substring((i+1));    // get the emergency type
+  int j = filter.indexOf('/', i+1);
+  String e_type = filter.substring((i+1), j).trim();    // get the emergency type
+  String flag = filter.substring(j+1).trim();
+
+  if(flag.compareTo("1") == 0){   // create a payload with updated location information if flag is 1
+    String emergency = getJsonValue("emergency", message);
+    payload = createEventPayload(emergency, latitude, longitude, accuracy);
+  }
+  else{
+    payload = message;
+  }
 
   if(e_type.equals("medical")){
 
     if(Particle.connected()){     // if the device is connected to the cloud, publish message to the cloud
-      publishToCloud("emergency/medical", message);
+      publishToCloud("emergency/medical", payload);
     }
   }
   if(e_type.equals("police")){
 
     if(Particle.connected()){     // if the device is connected to the cloud, publish message to the cloud
-      publishToCloud("emergency/police", message);
+      publishToCloud("emergency/police", payload);
     }
   }
 }
@@ -227,12 +256,15 @@ void hookResponseHandler(const char *event, const char *data){
   
   String ack = String(data);
   int i = ack.indexOf('/');
-  String message = ack.substring(1, i).trim();
-  String ack_code = ack.substring(i+1, i+2).trim();
-  String coreid = getDeviceID(message);
+  String message = ack.substring(1, i).trim();        // extract the SOS message
+  String ack_code = ack.substring(i+1, i+2).trim();   // extract ack_code (0 or 1)
+  String coreid = getDeviceID(message);               // extract the device id from SOS message
 
   if(coreid.compareTo(DEVICE) == 0){         // if the sending device receives the ACK don't propagate
-    if(ack_code.equals("1")){   // if SOS call successfully registered
+    if(sos_sent == -1){     // if no ACK is expected
+      Serial.println("# ACK DUMPED #");
+    }
+    else if(ack_code.equals("1")){   // if SOS call successfully registered
       Serial.println("# ACK RECEIVED #");
 
       sos_sent = -1;
@@ -244,6 +276,7 @@ void hookResponseHandler(const char *event, const char *data){
     }
   }
   else{       // propagate in mesh
+    Serial.println("** PUBLISH ACK IN MESH **");
     Mesh.publish("m_ack", ack);
   } 
 }
@@ -257,54 +290,26 @@ void meshAckHandler(const char *event, const char *data){
   String message = ack.substring(1, i).trim();
   String ack_code = ack.substring(i+1, i+2).trim();
   String coreid = getDeviceID(message);
+  Serial.println("coreid: " + coreid);
 
-  if(coreid.compareTo(DEVICE) == 0){
-    if(ack_code.equals("1")){
+  if(coreid.compareTo(DEVICE) == 0 && sos_sent != -1){    // if device id and core id match, accept the ACK and process
+    if(ack_code.equals("1")){     // if SOS call successfully registered
       Serial.println("# ACK RECEIVED. #");
 
       sos_sent = -1;
       ack_timeout.stop();
       sos_attempts = 0;
     }
-    else{
+    else{   // if error
       onAckTimeout();
     }
   }
-}
-
-// function to extract the device ID from received augmented message
-String getDeviceID(String data){    
-
-  int i = data.indexOf('-');
-  String devID = data.substring(i+1).trim();
-  return devID;
-}
-
-// handle the response by Google Maps API
-void locationCallBack(float lat, float lon, float acc){     
-  latitude = String(lat);
-  longitude = String(lon);
-  accuracy = String(acc);
-}
-
-// request to update location after every 20 minutes
-void onLocationTimeout(){
-  getlocation = true;
-}
-
-void toggleWifi(){
-  if(wifi_flag){
-    WiFi.disconnect();
-    WiFi.off();
-    wifi_flag = false;
-  }
-  else{
-    WiFi.on();
-    WiFi.connect();
-    wifi_flag = true;
+  else{     // if ACK is not expected or device ids do not match
+    Serial.println("# ACK DUMPED #");
   }
 }
 
+// handles timeout of ack_timeout timer and error acknowledgement
 void onAckTimeout(){
   Serial.println("** ack_timeout TIMED OUT **");
   Serial.print("ATTEMPTS: "); Serial.println(sos_attempts);
@@ -327,4 +332,61 @@ void onAckTimeout(){
     sos_attempts = 0;
     Serial.println("** SENDING SOS FAILED! **");
   }
+}
+
+// function to extract the device ID from received augmented SOS message
+String getDeviceID(String data){    
+
+  int i = data.indexOf('-');
+  String devID = data.substring(i+1).trim();
+  return devID;
+}
+
+// handle the response by Google Maps API
+void locationCallBack(float lat, float lon, float acc){     
+  latitude = String(lat);
+  longitude = String(lon);
+  accuracy = String(acc);
+}
+
+// request to update location after every 20 minutes
+void onLocationTimeout(){
+  getlocation = true;
+}
+
+// utility function to toggle WiFi on the chip
+void toggleWifi(){
+  if(wifi_flag){
+    WiFi.disconnect();
+    WiFi.off();
+    wifi_flag = false;
+  }
+  else{
+    WiFi.on();
+    WiFi.connect();
+    wifi_flag = true;
+  }
+}
+
+// get value by key from JSON string
+String getJsonValue(const char* key, const char* obj){
+  JsonParserStatic<512, 40> jp;
+
+  jp.clear();
+  jp.addString(obj);
+  
+  if(!jp.parse()){
+    Serial.println("Parsing JSON failed!");
+    return "";
+  }
+  
+  String value;
+  if(!jp.getOuterValueByKey(key, value)){
+    Serial.println("Fetching JSON value failed!");
+    return "";
+  }
+  
+  jp.nullTerminate();
+  
+  return value;
 }
