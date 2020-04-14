@@ -58,3 +58,8 @@ Example body:
   "timestamp": "2020-04-01T14:31:14.640Z"
 }
 ```
+
+
+NOTE: How to run server as backgroud process?
+
+`python <path>/MeshSOS/django-server/backend/manage.py runserver >> <path>/django.logs &`
