@@ -15,7 +15,18 @@ import pytz
 
 class rloglist(APIView):
     def get(self, request):
-        rloglist = request_logs.objects.all()
+        status = request.GET.get('status')
+        emergency_type = request.GET.get('emergency_type')
+
+        if (not status) and (not emergency_type):
+            rloglist = request_logs.objects.all()
+        elif (not status) and (emergency_type):
+            rloglist = request_logs.objects.filter(emergency_type = emergency_type)
+        elif (status) and (not emergency_type):
+            rloglist = request_logs.objects.filter(status=status)
+        else:
+            rloglist = request_logs.objects.filter(status=status, emergency_type = emergency_type)
+            
         serializer = rlogSerializer(rloglist, many=True)
         return Response(serializer.data)
 
