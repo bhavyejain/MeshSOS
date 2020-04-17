@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status as rf_status
 
 from .models import request_logs
 from .serializers import rlogSerializer
@@ -17,6 +17,21 @@ class rloglist(APIView):
     def get(self, request):
         status = request.GET.get('status')
         emergency_type = request.GET.get('emergency_type')
+        id = request.GET.get('id')
+
+        # if status came and was a BAD status
+        if not (status=='a' or status=='r' or status=='w'):
+            return Response(rf_status.HTTP_400_BAD_REQUEST)
+
+        # PATCH
+        if id and status:
+            # update status
+            log = request_logs.objects.get(id=id)
+            log.status = status
+            log.save()
+            serializer = rlogSerializer(log)
+            return Response(serializer.data)
+
 
         if (not status) and (not emergency_type):
             rloglist = request_logs.objects.all()
@@ -68,6 +83,21 @@ class rloglist(APIView):
         print("Parsed data:\n", req_data)
         serializer = rlogSerializer(data=req_data)
 
+        # should the log in POST be saved or not (this is only default value, manipulated in code below)
+        should_save_logs = True
+
+        # return_val
+        if (
+            req_data["latitude"] == "-1"
+            or req_data["longitude"] == "-1"
+            or req_data["accuracy"] == "-1"
+        ):
+            should_save_logs &= False
+            return_val = emergency + "/0"
+        else:
+            return_val = emergency + "/1"
+
+        # checking for validity of data
         if serializer.is_valid(raise_exception=True):
             # check for previous log
             query_set = request_logs.objects.filter(
@@ -76,32 +106,21 @@ class rloglist(APIView):
                 status='a',
             )
 
-            should_save_logs = True
-
             if query_set.exists() :
                 for log in query_set:
                     log_datetime = datetime.strptime(log.timestamp, '%Y-%m-%d %H:%M:%S')
                     log_datetime = log_datetime.replace(tzinfo=pytz.utc)
 
                     if isDifLessThanFiveMinutes(utc_datetime, log_datetime) :
-                        should_save_logs = False
+                        should_save_logs &= False
                         break
             
+            # saving log
             if should_save_logs:
                 print("Saving Log")
                 saved_obj = serializer.save()
             else :
                 print("Not Saving Log")
-
-        # return_val
-        if (
-            req_data["latitude"] == "-1"
-            or req_data["longitude"] == "-1"
-            or req_data["accuracy"] == "-1"
-        ):
-            return_val = emergency + "/0"
-        else:
-            return_val = emergency + "/1"
 
         return Response(return_val,)
 
