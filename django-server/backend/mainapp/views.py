@@ -20,7 +20,7 @@ class rloglist(APIView):
         id = request.GET.get('id')
 
         # if status came and was a BAD status
-        if not (status=='a' or status=='r' or status=='w'):
+        if status and (not (status=='a' or status=='r' or status=='w')):
             return Response(rf_status.HTTP_400_BAD_REQUEST)
 
         # PATCH
