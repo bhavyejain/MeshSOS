@@ -26,13 +26,13 @@ The sequential working of the project is shown in a simplified manner in the [se
 ## Device Firmware
 The firmware for Particle Argon boards is contained in the argon-firmware directory. 
 
-Please refer the readme in argon-firmware for details.
+Please refer the [README](argon-firmware/README.md) in argon-firmware for details and circuit schematic.
 
 ## The Server
 The server for this project was created by [Kaustubh Trivedi](https://github.com/codekaust).
 The django-server directory contains the code for the server.
 
-Please refer the readme in django-server for details.
+Please refer the [README](django-server/README.md) in django-server for details.
 
 ## The Console
 The admin dashboard for this project is contained in a separate repository [meshsos-dashboard](https://github.com/bhavyejain/meshsos-dashboard).
@@ -40,7 +40,7 @@ The admin dashboard for this project is contained in a separate repository [mesh
 This console provides a minimalistic interface for emergency services providers to locate the device that sent the SOS call, get the optimal directions to reach them, and manage flow of  handling of emergency calls. Please have a look at the README in the meshsos-dashboard repository for more detailed information.
 
 ## Future Developments
-Due to the current inavalability of LTE Cat M1 supported SIM cards in India, we were not able to add the Particle Borons to the mesh network. We plan to inctroduce devices with LTE capability in the mesh so that the newtwork is not solely reliant on WiFi for its functioning.
+Due to the current inavalability of LTE Cat M1 supported SIM cards in India, we were not able to add the Particle Boron IoT boards (LTE + Bluetooth) to the mesh network. We plan to inctroduce devices with LTE capability in the mesh so that the newtwork is not solely reliant on WiFi for its functioning.
 
 The project might explore possibility of data analytics to recommend deployment of emergency services vehicles once enough data can be obtained to develop a reliable analytics system. Currently, only a simple visualization of the events is provided in the admin dashboard of the project.
 
