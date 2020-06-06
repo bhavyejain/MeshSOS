@@ -58,3 +58,6 @@ https://docs.particle.io/reference/developer-tools/cli/#particle-mesh
 `particle serial monitor` : To open the serial monitor for serial logs.
 
 `particle flash --usb tinker` : Reset device to tinker app (original firmware of device) post development-apocalypse if the device is going crazy.
+
+## Circuit connection schematic
+<img src="../images/circuit.png">
