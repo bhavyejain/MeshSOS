@@ -2,6 +2,7 @@
 */.vscode
 *.code-workspace
 */.ipynb_checkpoints
+.vscode
 
 # Object files
 *.o
