@@ -1,0 +1,386 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2020.06.07 18:27:28 =~=~=~=~=~=~=~=~=~=~=~=
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 3004
+Resolution time: 3004
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1123
+Resolution time: 1123
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1222
+Resolution time: 1222
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 924
+Resolution time: 924
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1126
+Resolution time: 1126
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1725
+Resolution time: 1725
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1223
+Resolution time: 1223
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1325
+Resolution time: 1325
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1225
+Resolution time: 1225
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 2703
+Resolution time: 2703
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1223
+Resolution time: 1223
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1226
+Resolution time: 1226
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1123
+Resolution time: 1123
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1524
+Resolution time: 1524
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 823
+Resolution time: 823
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 825
+Resolution time: 825
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1324
+Resolution time: 1324
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1424
+Resolution time: 1424
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1623
+Resolution time: 1623
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1524
+Resolution time: 1524
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 923
+Resolution time: 923
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1223
+Resolution time: 1223
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 821
+Resolution time: 821
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 2730
+Resolution time: 2730
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1624
+Resolution time: 1624
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1325
+Resolution time: 1325
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1222
+Resolution time: 1222
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1284
+Resolution time: 1284
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1122
+Resolution time: 1122
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1324
+Resolution time: 1324
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 823
+Resolution time: 823
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1227
+Resolution time: 1227
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1426
+Resolution time: 1426
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1325
+Resolution time: 1325
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 824
+Resolution time: 824
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1423
+Resolution time: 1423
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1123
+Resolution time: 1123
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1825
+Resolution time: 1825
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1323
+Resolution time: 1323
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1224
+Resolution time: 1224
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1425
+Resolution time: 1425
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1124
+Resolution time: 1124
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1224
+Resolution time: 1224
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1223
+Resolution time: 1223
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1227
+Resolution time: 1227
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1627
+Resolution time: 1627
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1223
+Resolution time: 1223
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1222
+Resolution time: 1222
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1426
+Resolution time: 1426
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1223
+Resolution time: 1223
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1125
+Resolution time: 1125
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1323
+Resolution time: 1323
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1324
+Resolution time: 1324
+** btn_med PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1224
+Resolution time: 1224
+** btn_pol PRESSED **
+PUBLISH_TO_MESH :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 926
+Resolution time: 926

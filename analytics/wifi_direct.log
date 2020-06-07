@@ -1,0 +1,546 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2020.06.07 18:19:56 =~=~=~=~=~=~=~=~=~=~=~=
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-35,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-72,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-78,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-79,"c":7},{"m":"60:e3:27:8e:d0:62","s":-82,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333921","longitude":"78.023621","accuracy":"36.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1701
+Process resolution time: 1701
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-36,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-72,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"60:e3:27:8e:d0:62","s":-78,"c":9},{"m":"c8:3a:35:d7:e5:b8","s":-80,"c":1}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333958","longitude":"78.023628","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1103
+Process resolution time: 1103
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-37,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-65,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-70,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-76,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"60:e3:27:8e:d0:62","s":-77,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333944","longitude":"78.023651","accuracy":"31.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1802
+Process resolution time: 1802
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-37,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-76,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-76,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-80,"c":1},{"m":"60:e3:27:8e:d0:62","s":-81,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333965","longitude":"78.023628","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1302
+Process resolution time: 1302
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-36,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-76,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-77,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-80,"c":1},{"m":"60:e3:27:8e:d0:62","s":-84,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333967","longitude":"78.023651","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1801
+Process resolution time: 1801
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-32,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-69,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-72,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-75,"c":1}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333950","longitude":"78.023636","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1301
+Process resolution time: 1301
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-34,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-72,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-80,"c":1}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333935","longitude":"78.023636","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1201
+Process resolution time: 1201
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-37,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-70,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333996","longitude":"78.023605","accuracy":"34.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 502
+Resolution time: 502
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-33,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-72,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-74,"c":1}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.334000","longitude":"78.023598","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1319
+Resolution time: 1319
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-35,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-68,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-70,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-73,"c":7}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333895","longitude":"78.023674","accuracy":"37.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1871
+Resolution time: 1871
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-50,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-83,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-84,"c":1},{"m":"60:e3:27:8e:d0:62","s":-89,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333921","longitude":"78.023643","accuracy":"31.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1269
+Resolution time: 1269
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-55,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-76,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-79,"c":1},{"m":"d8:a3:15:17:79:1f","s":-87,"c":2}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333956","longitude":"78.023651","accuracy":"31.000000"}
+Round trip time: 2543
+** ACK with ERROR **
+ATTEMPTS: 1
+** ATTEMPTING RESEND **
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333937","longitude":"78.023643","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1573
+Resolution time: 4122
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-55,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-60,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-77,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-79,"c":1},{"m":"d8:a3:15:17:79:1f","s":-89,"c":2}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333937","longitude":"78.023643","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 503
+Resolution time: 502
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-57,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-79,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-79,"c":1},{"m":"d8:a3:15:17:79:1f","s":-88,"c":2}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333939","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1627
+Resolution time: 1627
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-49,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-78,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-79,"c":1},{"m":"d8:a3:15:17:79:1f","s":-86,"c":2}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333941","longitude":"78.023643","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1778
+Resolution time: 1778
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-32,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-56,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-70,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-74,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7},{"m":"60:e3:27:8e:d0:62","s":-84,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333937","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1180
+Resolution time: 1180
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-31,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-58,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-70,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-70,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-71,"c":7}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333952","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1233
+Resolution time: 1233
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-32,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-59,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-70,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-73,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333942","longitude":"78.023636","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1302
+Process resolution time: 1302
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-29,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-59,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-69,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333935","longitude":"78.023643","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1641
+Resolution time: 1641
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-37,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-71,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-74,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-79,"c":7},{"m":"60:e3:27:8e:d0:62","s":-82,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333885","longitude":"78.023682","accuracy":"36.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1290
+Resolution time: 1290
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-56,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-60,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-80,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-80,"c":1},{"m":"60:e3:27:8e:d0:62","s":-87,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333950","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1391
+Resolution time: 1391
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-53,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-74,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-81,"c":1},{"m":"60:e3:27:8e:d0:62","s":-88,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333952","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1392
+Resolution time: 1392
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-44,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-60,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-80,"c":1},{"m":"60:e3:27:8e:d0:62","s":-91,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333952","longitude":"78.023628","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1195
+Resolution time: 1195
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-49,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-60,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-76,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-83,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-84,"c":1},{"m":"60:e3:27:8e:d0:62","s":-90,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333946","longitude":"78.023682","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1746
+Resolution time: 1746
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"a8:9f:ba:db:c0:3c","s":-69,"c":6},{"m":"c8:3a:35:d7:e5:b8","s":-73,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-82,"c":1},{"m":"60:e3:27:8e:d0:62","s":-90,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023659","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1447
+Resolution time: 1447
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-28,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-70,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-73,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-73,"c":7},{"m":"60:e3:27:8e:d0:62","s":-82,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023659","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 503
+Process resolution time: 503
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-33,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-71,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-71,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7},{"m":"60:e3:27:8e:d0:62","s":-81,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333969","longitude":"78.023643","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 503
+Process resolution time: 503
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-29,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-73,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-76,"c":1},{"m":"60:e3:27:8e:d0:62","s":-81,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333967","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1599
+Resolution time: 1599
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-35,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-71,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-81,"c":1},{"m":"60:e3:27:8e:d0:62","s":-84,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333961","longitude":"78.023651","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1501
+Resolution time: 1501
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-28,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-73,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-75,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-79,"c":7},{"m":"60:e3:27:8e:d0:62","s":-80,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333950","longitude":"78.023628","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1257
+Resolution time: 1257
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-58,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-76,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-79,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-79,"c":1},{"m":"60:e3:27:8e:d0:62","s":-83,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023628","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1356
+Resolution time: 1356
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-63,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-72,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-76,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-82,"c":1},{"m":"60:e3:27:8e:d0:62","s":-89,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333946","longitude":"78.023643","accuracy":"33.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1609
+Resolution time: 1609
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-46,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-79,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-81,"c":1},{"m":"60:e3:27:8e:d0:62","s":-90,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333960","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1459
+Resolution time: 1459
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-45,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-65,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-75,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-82,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-85,"c":7},{"m":"60:e3:27:8e:d0:62","s":-94,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333946","longitude":"78.023659","accuracy":"33.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1159
+Resolution time: 1159
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-51,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-79,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-80,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-82,"c":1},{"m":"60:e3:27:8e:d0:62","s":-84,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333975","longitude":"78.023621","accuracy":"31.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1562
+Resolution time: 1562
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-32,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-69,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-71,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-74,"c":1},{"m":"60:e3:27:8e:d0:62","s":-82,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333944","longitude":"78.023643","accuracy":"36.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1101
+Process resolution time: 1101
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-31,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-70,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-72,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-81,"c":1},{"m":"60:e3:27:8e:d0:62","s":-82,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333948","longitude":"78.023636","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1415
+Resolution time: 1415
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-28,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-69,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-72,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-81,"c":1},{"m":"60:e3:27:8e:d0:62","s":-82,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333948","longitude":"78.023636","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 2401
+Process resolution time: 2401
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-32,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-70,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-72,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-74,"c":1},{"m":"60:e3:27:8e:d0:62","s":-81,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333942","longitude":"78.023643","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 2002
+Process resolution time: 2002
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-34,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-74,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-84,"c":1},{"m":"60:e3:27:8e:d0:62","s":-87,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333963","longitude":"78.023643","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 502
+Resolution time: 502
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-52,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-79,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-83,"c":1},{"m":"60:e3:27:8e:d0:62","s":-90,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333925","longitude":"78.023659","accuracy":"31.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1602
+Process resolution time: 1602
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-45,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-78,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-86,"c":1},{"m":"60:e3:27:8e:d0:62","s":-92,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333958","longitude":"78.023643","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1275
+Resolution time: 1275
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-49,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-62,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-78,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-82,"c":1},{"m":"60:e3:27:8e:d0:62","s":-91,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333950","longitude":"78.023651","accuracy":"33.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 1430
+Resolution time: 1430
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-50,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-76,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-82,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-85,"c":1},{"m":"60:e3:27:8e:d0:62","s":-91,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333956","longitude":"78.023643","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1401
+Process resolution time: 1401
+** btn_med PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-46,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"12:a0:96:f2:ef:fb","s":-77,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-79,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-80,"c":1}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"medical-e00fce683d2b75dcdd4efd71","latitude":"30.333954","longitude":"78.023651","accuracy":"33.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 2001
+Process resolution time: 2001
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-31,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-63,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-70,"c":1},{"m":"64:66:b3:f0:bc:d4","s":-71,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7},{"m":"60:e3:27:8e:d0:62","s":-77,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333929","longitude":"78.023651","accuracy":"36.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1601
+Process resolution time: 1601
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-33,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-70,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-72,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-75,"c":1},{"m":"60:e3:27:8e:d0:62","s":-81,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333960","longitude":"78.023628","accuracy":"30.000000"}
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK RECEIVED. #
+Round trip time: 502
+Resolution time: 502
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-28,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-64,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-72,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-75,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-82,"c":1},{"m":"60:e3:27:8e:d0:62","s":-83,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333971","longitude":"78.023636","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1601
+Process resolution time: 1601
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-31,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-68,"c":1},{"m":"12:a0:96:f2:ef:fb","s":-74,"c":7},{"m":"c8:3a:35:d7:e5:b8","s":-75,"c":1},{"m":"60:e3:27:8e:d0:62","s":-81,"c":9}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333935","longitude":"78.023643","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1402
+Process resolution time: 1402
+** btn_pol PRESSED **
+publishLocation
+scanData={"w":{"a":[{"m":"a8:9f:ba:db:c0:3c","s":-34,"c":6},{"m":"58:d9:d5:fc:bc:b0","s":-61,"c":7},{"m":"64:66:b3:f0:bc:d4","s":-73,"c":1},{"m":"c8:3a:35:d7:e5:b8","s":-74,"c":1},{"m":"60:e3:27:8e:d0:62","s":-77,"c":9},{"m":"12:a0:96:f2:ef:fb","s":-80,"c":7}]}}
+PUBLISH_TO_CLOUD :: {"emergency":"police-e00fce683d2b75dcdd4efd71","latitude":"30.333961","longitude":"78.023636","accuracy":"30.000000"}
+HOOK RESPONSE HANDLER : e00fce683d2b75dcdd4efd71
+# ACK RECEIVED #
+Round trip time: 1602
+Process resolution time: 1602
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
+MESH ACK HANDLER : e00fce683d2b75dcdd4efd71
+coreid: e00fce683d2b75dcdd4efd71
+# ACK DUMPED #
