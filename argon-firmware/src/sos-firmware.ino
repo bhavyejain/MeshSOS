@@ -62,6 +62,13 @@ bool resend_pol = false;
 String publish_filters[] = {"emergency/medical", "emergency/police"};
 String publish_messages[] = {MESSAGE_MEDICAL, MESSAGE_POLICE};
 
+// telemetry data recording for performance analysis
+long int request_sent = 0; // start time of one request
+long int ack_received = 0; // end time of one request
+long int process_initiated = 0;  // start time of emergency messaging process
+long int process_resolved = 0; // time of resolution of process wither by receiving good ACK or exhausting attempts
+long int round_time = 0;  // time to complete a call or a process
+
 void setup() {
   delay(3000);      // this delay allows to open serial monitor in time :-)
 
@@ -121,6 +128,9 @@ void loop() {
     sos_attempts = 1;
 
     sendSosMessage(0);
+
+    request_sent = millis();  // telemetry : record time when request was sent
+    process_initiated = millis(); // telemetry : record time when process was started
     delay(500);   // do not publish multiple times for a long press
   }
 
@@ -132,6 +142,9 @@ void loop() {
     sos_attempts = 1;
 
     sendSosMessage(1);
+
+    request_sent = millis();  // telemetry : record time when request was sent
+    process_initiated = millis(); // telemetry : record time when process was started
     delay(500);   // do not publish multiple times for a long press
   }
 
@@ -139,10 +152,12 @@ void loop() {
     if(resend_med){
       resendSosMessage(0);
       resend_med = false;
+      request_sent = millis();  // telemetry : record time when request was sent
     }
     if(resend_pol){
       resendSosMessage(1);
       resend_pol = false;
+      request_sent = millis();  // telemetry : record time when request was sent
     }
   }
 
@@ -270,6 +285,13 @@ void hookResponseHandler(const char *event, const char *data){
       sos_sent = -1;
       ack_timeout.stop();
       sos_attempts = 0;
+
+      // telemetry record
+      ack_received = millis();
+      round_time = ack_received - request_sent;
+      Serial.print("Round trip time: "); Serial.println(round_time);
+      round_time = ack_received - process_initiated;
+      Serial.print("Process resolution time: "); Serial.println(round_time);
     }
     else{     // if error
       onAckTimeout();
@@ -299,6 +321,13 @@ void meshAckHandler(const char *event, const char *data){
       sos_sent = -1;
       ack_timeout.stop();
       sos_attempts = 0;
+
+      // telemetry record
+      ack_received = millis();
+      round_time = ack_received - request_sent;
+      Serial.print("Round trip time: "); Serial.println(round_time);
+      round_time = ack_received - process_initiated;
+      Serial.print("Resolution time: "); Serial.println(round_time);
     }
     else{   // if error
       onAckTimeout();
@@ -311,7 +340,18 @@ void meshAckHandler(const char *event, const char *data){
 
 // handles timeout of ack_timeout timer and error acknowledgement
 void onAckTimeout(){
-  Serial.println("** ack_timeout TIMED OUT **");
+  // telemetry record
+  ack_received = millis();
+  round_time = ack_received - request_sent;
+
+  if(round_time >= (long int)4900 ){
+    Serial.println("** ack_timeout TIMED OUT **");
+  }
+  else{
+    Serial.print("Round trip time: "); Serial.println(round_time);
+    Serial.println("** ACK with ERROR **");
+  }
+
   Serial.print("ATTEMPTS: "); Serial.println(sos_attempts);
   
   if(sos_attempts < 3 && sos_sent != -1){
@@ -331,6 +371,10 @@ void onAckTimeout(){
     sos_sent = -1;
     sos_attempts = 0;
     Serial.println("** SENDING SOS FAILED! **");
+
+    process_resolved = millis();  // telemetry : record time of resolving process
+    round_time = process_resolved - process_initiated;
+    Serial.print("Resolution time: "); Serial.println(round_time);
   }
 }
 
