@@ -3,9 +3,15 @@
 This directory contains the source code of the firmware for Particle Argon boards.
 
 ## Directories
-* **firmware** : Contains the final binary for the argon board. This firmware can be flashed onto an Argon via USB.
+* **firmware** : Contains the final binaries for the argon board. This firmware can be flashed onto an Argon via USB.
 * **lib** : Contains the source code for the libraries used in the project
 * **src** : Contains the source code for the firmware of the project
+
+## Firmware
+
+`firmware_argon_v302.bin` is the main firmware for the Argon boards.
+
+`firmware_telemetry` is the main firmware with telemetry data collection for network analysis.
 
 ## Device OS and Libraries
 
@@ -61,3 +67,13 @@ https://docs.particle.io/reference/developer-tools/cli/#particle-mesh
 
 ## Circuit connection schematic
 <img src="../images/circuit.png">
+
+## Collecting data with firmware_telemetry binary
+
+1. Install a serial logging application like PuTTY (Windows).
+2. Use `particle serial monitor` in the Particle CLI to get the COM serial line for your Argon.
+3. Configure the logging application to listen to this COM port. For PuTTY, select `Serial` from `Connection type` and change the `Serial line` to your COM port, e.g., `COM3`.
+4. Congifure the logging settings to print `all session output` and choose a log file name.
+5. Start the application session to get serial output and save them as logs.
+
+Reference: [About serial - Particle](https://docs.particle.io/tutorials/learn-more/about-serial/) , [Logging in PuTTY](https://www.eye4software.com/hydromagic/documentation/articles-and-howtos/serial-port-logging/)
