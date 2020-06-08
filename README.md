@@ -30,13 +30,19 @@ A central server is kept active which receives the SOS calls made from the devic
 The sequential working of the project is shown in a simplified manner in the [sequence diagram](images/sequence-diagram.png).
 
 ## Device Firmware
-The firmware for Particle Argon boards is contained in the argon-firmware directory. 
+The firmware for Particle Argon boards is contained in the `argon-firmware` directory. 
 
 Please refer to the [README](argon-firmware/README.md) in argon-firmware for details and circuit schematic.
 
+## Network Analytics
+The `analytics` directory contains logs related to round trip time in the network and process resolution times
+(time from initiating an emergency call to either a positive acknowledgement or failed process).
+
+The jupyter notebook contains the analysis of the information and plots for the same.
+
 ## The Server
 The server for this project was created by [Kaustubh Trivedi](https://github.com/codekaust).
-The django-server directory contains the code for the server.
+The `django-server` directory contains the code for the server.
 
 Please refer the [README](django-server/README.md) in django-server for details.
 
