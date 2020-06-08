@@ -33,6 +33,17 @@ The code is well-commented for being self explanatory.
 ## Working
 The sequential working of the project is shown in a simplified manner in the [sequence diagram](images/sequence-diagram.png).
 
+Broadly, there are 3 basic cases that are handled during the execution of the system:
+
+1. If the device is connected to the internet (via Wi-Fi), it fetches its location and then directly publishes an event to the Particle cloud. The integrated webhook then takes care of sending the data to our server. In this case, the mesh is not involved.
+2. If the device does not have an internet connection, it publishes the message in the mesh network, so that a node with an active internet connection can publish the message to the Particle cloud. This case leads to 2 sub cases:
+    * Case 1 : The device has location information stored (it had an internet connection sometime after start-up). In this case, the final mesh node simply publishes the message to the Particle cloud.
+    * Case 2 : The device does not have any location information and fails to fetch it. In this case, when the message is published in the mesh the second time, a flag is attached to the message which lets the gateway node to append its own location information to the message being published to the Particle cloud.
+
+Acknowledgements from the Particle cloud are always sent into the mesh by the gateway node, unless the acknowledgement was meant for that node itself.
+
+The system makes maximum of 3 attempts to deliver a message to the cloud successfully, after which it declares the process as failed.
+
 ## Flashing the Argon with firmware
 
 Connect the device via a USB cable and enter the following commands in `Particle CLI` sequentially to flash the device with the firmware.
