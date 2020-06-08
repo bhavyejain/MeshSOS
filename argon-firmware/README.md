@@ -88,3 +88,12 @@ https://docs.particle.io/reference/developer-tools/cli/#particle-mesh
 5. Start the application session to get serial output and save them as logs.
 
 Reference: [About serial - Particle](https://docs.particle.io/tutorials/learn-more/about-serial/) , [Logging in PuTTY](https://www.eye4software.com/hydromagic/documentation/articles-and-howtos/serial-port-logging/)
+
+### Relevant Log Labels:
+* Round trip time
+* Resolution time
+* btn_med PRESSED
+* btn_pol PRESSED
+* ATTEMPTS
+* ACK with ERROR
+* ACK RECEIVED

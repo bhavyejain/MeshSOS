@@ -291,7 +291,7 @@ void hookResponseHandler(const char *event, const char *data){
       round_time = ack_received - request_sent;
       Serial.print("Round trip time: "); Serial.println(round_time);
       round_time = ack_received - process_initiated;
-      Serial.print("Process resolution time: "); Serial.println(round_time);
+      Serial.print("Resolution time: "); Serial.println(round_time);
     }
     else{     // if error
       onAckTimeout();
