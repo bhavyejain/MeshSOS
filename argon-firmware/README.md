@@ -31,7 +31,7 @@ The INO file `sos-firmware.ino` contains the main firmware code for Argon boards
 The code is well-commented for being self explanatory.
 
 ## Working
-The sequential working of the project is shown in a simplified manner in the [sequence diagram](images/sequence-diagram.png).
+The sequential working of the project is shown in a simplified manner in the [sequence diagram](../images/sequence-diagram.png).
 
 Broadly, there are 3 basic cases that are handled during the execution of the system:
 
