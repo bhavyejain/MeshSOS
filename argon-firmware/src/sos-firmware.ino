@@ -41,6 +41,11 @@ const int wifi_btn = A5;
 int val_wifi = 0;
 bool wifi_flag = true;
 
+// variables for testing simulation
+const int button_sim = A3;
+int val_sim = 0;
+bool sim_flag = false;
+
 Timer location_timer(1200000, onLocationTimeout, false);      // a timer for 20 minutes : update location of the device every 20 minutes
 bool getlocation = false;
 
@@ -83,6 +88,7 @@ void setup() {
   pinMode(button_pol, INPUT_PULLDOWN);  // take input from police emergency button
 
   pinMode(wifi_btn, INPUT_PULLDOWN);    // take input from wifi toggle button
+  pinMode(button_sim, INPUT_PULLDOWN);  // take input from simulation toggle button
 
   Particle.subscribe("ACK", hookResponseHandler, MY_DEVICES);   // subscribe to acknowledgements from server
   Mesh.subscribe("m_emergency", meshEmergencyHandler);      // subscribe to emergency messages being broadcasted in the mesh
@@ -105,7 +111,7 @@ void setup() {
   Serial.print("LOCATION::  "); Serial.println("lat: " + String(latitude) + " lon: " + String(longitude) + "  acc: " + String(accuracy));
 }
 
-void loop() {
+void loop() {  
 
   if(!WiFi.ready() && !WiFi.connecting()){
     Serial.println("**** LOOP : WIFI CONNECTING ****");
@@ -119,6 +125,22 @@ void loop() {
   // update values of cloud-visible variables
   btn_medical = val_med;
   btn_police = val_pol;
+
+  // if simulation is enabled, trigger SOS message automatically
+  if(sim_flag && sos_sent == -1){
+    delay(500);
+
+    Serial.println("*** Trigger Auto Send ***");
+    int select = random(2);
+    if(select == 0){
+      val_med = 1;  // send medical emergency message
+    }
+    else{
+      val_pol = 1;  // send police emergency message
+    }
+
+    delay(500);  // keep total 1 second gap between 2 simulations
+  }
 
   if(val_med == 1 && sos_sent == -1){   // no pending acknowledgement
     Serial.println("** btn_med PRESSED **");
@@ -165,6 +187,14 @@ void loop() {
   val_wifi = digitalRead(wifi_btn);
   if(val_wifi == 1){
     toggleWifi();
+
+    delay(500);
+  }
+
+  // toggle testing simulation
+  val_sim = digitalRead(button_sim);
+  if(val_sim == 1){
+    toggleSimulation();
 
     delay(500);
   }
@@ -410,6 +440,11 @@ void toggleWifi(){
     WiFi.connect();
     wifi_flag = true;
   }
+}
+
+// utility function to toggle simulation mode
+void toggleSimulation(){
+  sim_flag = !sim_flag;
 }
 
 // get value by key from JSON string
