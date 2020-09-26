@@ -1,8 +1,8 @@
 # Workspace
-*/.vscode
 *.code-workspace
-*/.ipynb_checkpoints
-.vscode
+**/.ipynb_checkpoints
+**/__pycache__
+**/test.py
 
 # Object files
 *.o
