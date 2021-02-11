@@ -2,6 +2,8 @@
 
 MeshSOS is an IOT project based on Particle IoT boards, aimed at creating a robust SOS emergency management system for senior citizens. It aims to provide a simplictic and reliable alternative to smartphone based emergency systems, that becomes more robust with an increasing user base.
 
+Our paper [MeshSOS: An IoT Based Emergency Response System](http://hdl.handle.net/10125/71089) introducting this work has been accepted in the proceedings of the 54th HICSS (Hawaii International Conference on System Sciences), 2021.
+
 [![License](https://img.shields.io/github/license/bhavyejain/MeshSOS?style=plastic)](https://opensource.org/licenses/MIT) [![Stable version](https://img.shields.io/badge/Stable_version-v3.0.2-brightgreen.svg?style=plastic)](http://shields.io)
 
 ## The Idea
